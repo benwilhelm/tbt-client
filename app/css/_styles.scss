@@ -1,0 +1,40 @@
+body { background-color: #eee; font-family: "Helvetica", "Arial", sans-serif; margin: 6em 0 3em ; padding: 1em; }
+
+#app_header { background-color: #fff; border-bottom: 1px solid #999; height: 6em; position: fixed; top: 0; left: 0; width: 100%; }
+#app_header #red_bar { background-color: #960202; color: #fff; padding: .4em; }
+#app_clock { float: right; font-size: 1.2em; }
+#app_menu { list-style: none; margin: 0; padding: .4em 0; }
+#app_menu li { float: left; font-size: 1.5em; list-style:none; width: 25%; }
+#app_menu a { border-left: 1px solid #ccc; color: #999; display: block; padding: .4em 0; text-align: center; text-decoration: none; }
+  #app_menu li a.active { color: #000; font-weight: bold; }
+
+.party { background-color: #fff; border: 1px solid #ccc; border-bottom-color: #999; border-radius: 3px; margin: .5em 0; padding: 1em; }
+  .party .party-info { padding-left: 7em; }
+  .party .party-size { float: left; font-size: 5em; line-height: 1; margin-left: -1.4em; text-align: center; width: 1.4em; }
+  .party .name { font-size: 2em; }
+  .party .time-taken, 
+  .party .time-promised { padding-top: .3em; }
+  .party .time-taken span,
+  .party .time-promised span { display: inline-block; width: 8em; }
+  
+  .party .button { font-weight: lighter; background-color: #ddd; border-bottom: 1px solid #888; border-radius: 3px; color: #fff; float: right; font-size: 1.6em; height: 2em; margin: .2em; padding: .8em 0 ; text-align: center; width: 4.5em; }
+  .party .button.notify { background-color: #0b9011; }
+    .party .button.notify .phone { display: block; font-size: .6em; }
+  .party .button.notify.notified { background-color: #ffde00; color: #365e7a; }
+    .party .button.notify .label { display: block; font-size: .8em; }
+    .party .button.notify .countdown { display: block; }
+  .party .button.seat { background-color: #365e7a; }
+  .party .button.cancel { background-color: #000; }
+
+#app_footer { background-color: #960202; border-top: 1px solid #300; color: #fff; position: fixed; left: 0; bottom: 0; width: 100% ; }
+  #app_footer a.button { background-color: #a11; color: #fff; font-size: 2.5em; display: block; float: right; padding: 0 .5em .25em; text-decoration: none; }
+  #app_footer a.new-party { float: right; }
+  #app_footer a.to-top { float: left; }
+  
+  
+.dialog-overlay { background-color: rgba(255,255,255,0.75); height: 100%; left: 0; position: fixed; top: 0; width: 100%; }  
+.dialog { background-color: #fff; border: 1px solid #bbb; border-bottom-color: #666; border-radius: 3px; margin: 7em 25%; padding: 1em; }
+
+.clear { clear: both; }
+.col-left { float: left; width: 45% }
+.col-right { float: right; width: 55%; }

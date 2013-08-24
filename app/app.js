@@ -1,5 +1,10 @@
-var App = Ember.Application.create();
+var App = Ember.Application.create({
+//  LOG_TRANSITIONS:true,
+//  LOG_VIEW_LOOKUPS:true,
+//  LOG_ACTIVE_GENERATION:true
+});
 var DS;
+var moment;
 
 App.Store = DS.Store.extend({
   adapter: DS.FixtureAdapter.extend({
@@ -8,8 +13,30 @@ App.Store = DS.Store.extend({
       return fixtures.filter(function(fxtr){
         for (var key in query) {
           var val = query[key] ;
-          if (fxtr[key] !== val) {
-            return false ;
+          switch (key) {
+            case 'waiting':
+              if (val === true && (fxtr.time_seated !== null || fxtr.time_cancelled !== null)) {
+                return false;
+              }
+              break;
+              
+            case 'seated': 
+              if (val === true && fxtr.time_seated === null) {
+                return false;
+              }
+              break;
+            
+            case 'cancelled': 
+              if (val === true && fxtr.time_cancelled === null) {
+                return false;
+              }
+              break;
+            
+            default:
+              if (fxtr[key] !== val) {
+                return false ;
+              }
+              break;
           }
         }
         return true ;
@@ -21,5 +48,8 @@ App.Store = DS.Store.extend({
 
 App.Router.map(function() {
 	'use strict';
-    this.resource('about');
+  this.route('waiting');
+  this.route('seated');
+  this.route('cancelled');
+  this.route('setup');
 });
