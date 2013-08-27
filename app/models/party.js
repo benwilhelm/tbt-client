@@ -9,25 +9,18 @@ App.Party = DS.Model.extend({
   time_taken: DS.attr('string'),
   time_promised: DS.attr('string'),
   
-  notified: function(){
-    "use strict";
-    return (this.get('time_notified') === false) ? false : true ;
-  }.property('time_notified'),
-  
   seated: function(){
     "use strict";
-    console.log('called seated') ;
-    return (this.get('time_seated') === false) ? false : true ;
+    return (this.get('time_seated') === null) ? false : true ;
   }.property('time_seated'),
   
   cancelled: function(){
     "use strict";
-    return (this.get('time_cancelled') === false) ? false : true ;
+    return (this.get('time_cancelled') === null) ? false : true ;
   }.property('time_cancelled'),
   
   waiting: function(){
     "use strict";
-    console.log('called waiting') ;
     var seated = this.get('seated') ;
     var cancelled = this.get('cancelled') ;
     return (seated || cancelled) ? false : true ;

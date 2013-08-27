@@ -8,7 +8,11 @@
   	  </div><!-- .party-info -->
     </div><!-- .half.left -->
     <div class="buttons col-right">
-  	  <div class="button notify notified"><span class="label">Notified</span> <span class="countdown">4:32</span></div>
+      {{#if notified}}
+    	  <div {{action 'recall' on='click'}} class="button notify notified"><span class="label">Notified</span> <span class="countdown">4:32</span></div>
+      {{else}}
+    	  <div {{action 'notify' on='click'}} class="button notify">Notify <span class="phone">(847) 644-9168</span></div>
+      {{/if}}
   	  <div class="button seat">Seat</div>
   	  <div class="button cancel">Cancel</div>
     </div><!-- .buttons -->

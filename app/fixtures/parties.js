@@ -4,11 +4,11 @@ App.Party.FIXTURES = [{
   "id":1,
   "name": "Wilhelm" ,
   "size": 3,
-  "time_notified": null,
+  "time_notified": moment().subtract('minute',5),
   "time_seated": null,
   "time_cancelled": null,
-  "time_taken": moment().subtract('minute',5),
-  "time_promised": moment().add('minute',20)
+  "time_taken": moment().subtract('minute',25),
+  "time_promised": moment().add('minute',5)
 },{
   "id":2,
   "name": "Gadda" ,
