@@ -56,3 +56,8 @@ App.Router.map(function() {
   });
   this.route('setup');
 });
+
+
+App.preferences = {
+  return_time: 5 * 60 * 1000 
+} ;

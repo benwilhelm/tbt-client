@@ -5,11 +5,11 @@ App.Party.FIXTURES = [{
   "name": "Wilhelm" ,
   "size": 3,
   "phone_number": "8476449168",
-  "time_notified": moment().subtract('minute',5),
+  "time_notified": null,
   "time_seated": null,
   "time_cancelled": null,
-  "time_taken": moment().subtract('minute',25),
-  "time_promised": moment().add('minute',5)
+  "time_taken": moment().subtract('minute',25).format('YYYY-MM-DDTHH:mm:ss'),
+  "time_promised": moment().add('minute',5).format('YYYY-MM-DDTHH:mm:ss')
 },{
   "id":2,
   "name": "Gadda" ,
@@ -18,8 +18,8 @@ App.Party.FIXTURES = [{
   "time_notified": null,
   "time_seated": null,
   "time_cancelled": null,
-  "time_taken": moment().subtract('minute',8),
-  "time_promised": moment().add('minute',17)
+  "time_taken": moment().subtract('minute',15).format('YYYY-MM-DDTHH:mm:ss'),
+  "time_promised": moment().add('minute',17).format('YYYY-MM-DDTHH:mm:ss')
 },{
   "id":3,
   "name": "Morken" ,
@@ -27,9 +27,9 @@ App.Party.FIXTURES = [{
   "phone_number": "3125551212",
   "time_notified": null,
   "time_seated": null,
-  "time_cancelled": moment().subtract('minute',10),
-  "time_taken": moment().subtract('minute',8),
-  "time_promised": moment().add('minute',17)
+  "time_cancelled": moment().subtract('minute',10).format('YYYY-MM-DDTHH:mm:ss'),
+  "time_taken": moment().subtract('minute',8).format('YYYY-MM-DDTHH:mm:ss'),
+  "time_promised": moment().add('minute',17).format('YYYY-MM-DDTHH:mm:ss')
 },{
   "id":4,
   "name": "Hug" ,
@@ -38,8 +38,8 @@ App.Party.FIXTURES = [{
   "time_notified": null,
   "time_seated": null,
   "time_cancelled": null,
-  "time_taken": moment().subtract('minute',8),
-  "time_promised": moment().add('minute',17)
+  "time_taken": moment().subtract('minute',12).format('YYYY-MM-DDTHH:mm:ss'),
+  "time_promised": moment().add('minute',13).format('YYYY-MM-DDTHH:mm:ss')
 },{
   "id":5,
   "name": "Plevin" ,
@@ -48,6 +48,6 @@ App.Party.FIXTURES = [{
   "time_notified": null,
   "time_seated": moment().subtract('minute',3),
   "time_cancelled": null,
-  "time_taken": moment().subtract('minute',30),
-  "time_promised": moment().subtract('minute',5)
+  "time_taken": moment().subtract('minute',30).format('YYYY-MM-DDTHH:mm:ss'),
+  "time_promised": moment().subtract('minute',5).format('YYYY-MM-DDTHH:mm:ss')
 }];

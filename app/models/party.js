@@ -1,4 +1,4 @@
-var DS;
+var DS, moment;
 
 App.Party = DS.Model.extend({
   name: DS.attr('string') ,
@@ -31,5 +31,16 @@ App.Party = DS.Model.extend({
     var seated = this.get('seated') ;
     var cancelled = this.get('cancelled') ;
     return (seated || cancelled) ? false : true ;
-  }.property('seated','cancelled')
+  }.property('seated','cancelled'),
+  
+  countdown: function(){
+    "use strict" ;
+    var notified = moment(this.get('time_notified')) ;
+    var return_time = moment(App.preferences.return_time) ;
+    var clock = moment(App.clockTime);
+    
+    var diff = clock.diff(notified) ;    
+    return return_time.diff(diff) ;
+    
+  }.property('model.notified','App.clockTime')
 }) ;
