@@ -11,6 +11,7 @@ module.exports = function(grunt) {
         'app/controllers/*.js',
         'app/routes/*.js',
         'app/views/*.js',
+        'app/views/*/*.js',
         'app/helpers/*.js',
         'app/fixtures/*.js'
       ],
@@ -46,6 +47,7 @@ module.exports = function(grunt) {
           'app/controllers/*.js',
           'app/routes/*.js',
           'app/views/*.js',
+          'app/views/*/*.js',
           'app/helpers/*.js',
           'app/fixtures/*.js'
         ],
@@ -89,7 +91,11 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          "debug/templates.js":["app/templates/*.hbs","app/templates/*/*.hbs"]
+          "debug/templates.js":[
+            "app/templates/*.hbs",
+            "app/templates/*/*.hbs",
+            "app/templates/*/*/*.hbs"
+          ]
         }
       }
     },
@@ -124,10 +130,12 @@ module.exports = function(grunt) {
           'app/fixtures/*.js',
           'app/helpers/*.js',
           'app/views/*.js',
+          'app/views/*/*.js',
           'app/routes/*.js',
           'app/css/*.scss',
           'app/templates/*.hbs', 
           'app/templates/*/*.hbs', 
+          'app/templates/*/*/*.hbs', 
           'app/models/*.js', 
           'app/tests/*.js'
         ],

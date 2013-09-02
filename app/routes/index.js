@@ -1,6 +1,6 @@
 App.IndexRoute = Ember.Route.extend({
   redirect: function(){
     "use strict" ;
-    this.transitionTo('waiting') ;
+    this.transitionTo('parties.waiting') ;
   }
 });

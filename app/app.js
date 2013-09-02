@@ -3,6 +3,7 @@ var App = Ember.Application.create({
 //  LOG_VIEW_LOOKUPS:true,
 //  LOG_ACTIVE_GENERATION:true
 });
+App.Views = {} ;
 var DS;
 var moment;
 
@@ -48,8 +49,10 @@ App.Store = DS.Store.extend({
 
 App.Router.map(function() {
 	'use strict';
-  this.route('waiting');
-  this.route('seated');
-  this.route('cancelled');
+  this.resource('parties',function(){
+    this.route('waiting');
+    this.route('seated');
+    this.route('cancelled');
+  });
   this.route('setup');
 });
