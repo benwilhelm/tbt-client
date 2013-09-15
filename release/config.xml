@@ -6,7 +6,7 @@
         version   = "0.0.1">
 
     <!-- versionCode is optional and Android only -->
-
+    
     <name>Text to Table</name>
 
     <description>
@@ -16,5 +16,10 @@
     <author href="https://doublebeamdesign.com.com" email="hello@doublebeamdesign.com">
         Double Beam Design Group 
     </author>
+
+
+
+    <feature name="http://api.phonegap.com/1.0/network"/>
+
 
 </widget>
