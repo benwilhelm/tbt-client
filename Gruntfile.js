@@ -171,6 +171,9 @@ module.exports = function(grunt) {
           base:'qunit'
         }
       }
+    },
+    zip: {
+      "release-pkg/release.zip" : ["release/**/*.*"]
     }
   });
 
@@ -180,11 +183,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-ember-handlebars');
-    grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.loadNpmTasks('grunt-contrib-qunit');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-ember-handlebars');
+  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-zip');
   grunt.registerTask('default', ['ember_handlebars','concat','sass','clean','copy','connect','qunit','watch']);
   grunt.registerTask('release', ['jshint','uglify','cssmin','clean','copy']);
+  grunt.registerTask('package_release',['release','zip']);
 };
