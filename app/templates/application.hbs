@@ -1,28 +1,30 @@
-<header id="app_header">
-  <div id="red_bar">
-    <div id="app_clock">{{clockDisplay App.clockTime}}</div>
+<div id="container">
+  <header id="app_header">
+    <div id="red_bar">
+      <div id="app_clock">{{clockDisplay App.clockTime}}</div>
+      <div class="clear"></div>
+    </div>
+    
+    <ul id="app_menu">
+      <li>{{#linkTo 'parties.waiting'}}Waiting{{/linkTo}}</li>
+      <li>{{#linkTo 'parties.seated'}}Seated{{/linkTo}}</li>
+      <li>{{#linkTo 'parties.cancelled'}}Cancelled{{/linkTo}}</li>
+      <li>{{#linkTo 'setup'}}Setup{{/linkTo}}</li>
+    </ul>
     <div class="clear"></div>
-  </div>
+    
+  </header>
   
-  <ul id="app_menu">
-    <li>{{#linkTo 'parties.waiting'}}Waiting{{/linkTo}}</li>
-    <li>{{#linkTo 'parties.seated'}}Seated{{/linkTo}}</li>
-    <li>{{#linkTo 'parties.cancelled'}}Cancelled{{/linkTo}}</li>
-    <li>{{#linkTo 'setup'}}Setup{{/linkTo}}</li>
-  </ul>
-  <div class="clear"></div>
+  <div id="content">
   
-</header>
-
-<div id="content">
-
-{{outlet}}
-
-</div><!-- .content -->
-
-<footer id="app_footer">
-  <a class="button new-party" href="#">&plus;</a>
-  <a class="button to-top" href="#">&uarr;</a>
-  <div class="clear"></div>
-</footer>
-
+  {{outlet}}
+  
+  </div><!-- .content -->
+  
+  <footer id="app_footer">
+    <a class="button new-party" href="#">&plus;</a>
+    <a class="button to-top" href="#">&uarr;</a>
+    <div class="clear"></div>
+  </footer>
+  
+</div>

@@ -10,8 +10,7 @@ module.exports = function(grunt) {
         'app/models/*.js',
         'app/controllers/*.js',
         'app/routes/*.js',
-        'app/views/*.js',
-        'app/views/*/*.js',
+        'app/views/**/*.js',
         'app/helpers/*.js',
         'app/fixtures/*.js'
       ],
@@ -39,29 +38,32 @@ module.exports = function(grunt) {
           'app/library/jquery-1.9.1.js',
           'app/library/handlebars.js',
           'app/library/moment.js',
-          'app/library/ember-1.0.0-rc.7.js',
+          'app/library/ember-1.0.0.js',
           'app/library/ember-data-latest.js',
           'app/app.js',
           'debug/templates.js',
           'app/models/*.js',
           'app/controllers/*.js',
           'app/routes/*.js',
-          'app/views/*.js',
-          'app/views/*/*.js',
+          'app/views/**/*.js',
           'app/helpers/*.js',
           'app/fixtures/*.js'
         ],
         dest:'debug/app.js'
       },
       test: {
-        src:['app/tests/*.js'],
+        src:[
+          'debug/app.js',
+          'app/tests/*.js'
+        ],
         dest:'qunit/tests.js'
       }
     },
     sass: {
       css: {
         files: {
-          'debug/app.css':'app/css/base.scss'
+          'debug/app.css':'app/css/base.scss',
+          'qunit/app.css':'app/css/base.scss'
         }
       }
     },
@@ -92,9 +94,7 @@ module.exports = function(grunt) {
         },
         files: {
           "debug/templates.js":[
-            "app/templates/*.hbs",
-            "app/templates/*/*.hbs",
-            "app/templates/*/*/*.hbs"
+            "app/templates/**/*.hbs"
           ]
         }
       }
@@ -129,17 +129,14 @@ module.exports = function(grunt) {
           'app/controllers/*.js',
           'app/fixtures/*.js',
           'app/helpers/*.js',
-          'app/views/*.js',
-          'app/views/*/*.js',
+          'app/views/**/*.js',
           'app/routes/*.js',
           'app/css/*.scss',
-          'app/templates/*.hbs', 
-          'app/templates/*/*.hbs', 
-          'app/templates/*/*/*.hbs', 
+          'app/templates/**/*.hbs', 
           'app/models/*.js', 
           'app/tests/*.js'
         ],
-        tasks: ['jshint','ember_handlebars','concat','sass','qunit'],
+        tasks: ['jshint','ember_handlebars','concat','sass'],
         options: {
           debounceDelay:300
         }
@@ -153,7 +150,7 @@ module.exports = function(grunt) {
       }
     },
     qunit: {
-      all: ['qunit/index.html']
+      files: ['qunit/index.html']
     },
     connect: {
       debug: {
