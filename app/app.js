@@ -1,3 +1,11 @@
+var window, FastClick;
+window.addEventListener('load', function() {
+  "use strict" ;
+  FastClick.attach(document.body);
+}, false);
+
+
+
 var App = Ember.Application.create({
 //  LOG_TRANSITIONS:true,
 //  LOG_VIEW_LOOKUPS:true,

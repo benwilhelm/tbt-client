@@ -38,6 +38,7 @@ module.exports = function(grunt) {
           'app/library/jquery-1.9.1.js',
           'app/library/handlebars.js',
           'app/library/moment.js',
+          'app/library/fastclick.js',
           'app/library/ember-1.0.0.js',
           'app/library/ember-data-latest.js',
           'app/app.js',

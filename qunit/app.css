@@ -11,7 +11,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%; }
+  width: 100%;
+  z-index: 100; }
 
 #app_header #red_bar {
   background-color: #960202;
@@ -131,7 +132,8 @@ body {
   position: fixed;
   left: 0;
   bottom: 0;
-  width: 100%; }
+  width: 100%;
+  z-index: 100; }
 
 #app_footer a.button {
   background-color: #a11;
@@ -142,27 +144,67 @@ body {
   padding: 0 .5em .25em;
   text-decoration: none; }
 
-#app_footer a.new-party {
+#app_footer a.to-top {
   float: right; }
 
-#app_footer a.to-top {
-  float: left; }
-
-.dialog-overlay {
-  background-color: rgba(255, 255, 255, 0.75);
+#modal_overlay {
+  background-color: rgba(128, 128, 128, 0.75);
   height: 100%;
   left: 0;
   position: fixed;
   top: 0;
-  width: 100%; }
+  width: 100%;
+  z-index: 99; }
 
-.dialog {
+#dialog_container {
   background-color: #fff;
   border: 1px solid #bbb;
   border-bottom-color: #666;
   border-radius: 3px;
-  margin: 7em 25%;
-  padding: 1em; }
+  margin: 7em 20%;
+  padding: 1em 2em; }
+
+#dialog_container .dialog-title {
+  font-size: 2em;
+  font-weight: normal;
+  margin: 0;
+  text-align: center; }
+
+#new_party_dialog .input-wrapper {
+  font-size: 1.5em;
+  padding-left: 4em; }
+
+#new_party_dialog .input-wrapper label {
+  display: block;
+  float: left;
+  margin-left: -4em;
+  padding-right: .25em;
+  position: relative;
+  text-align: right;
+  width: 3.5em; }
+
+#new_party_dialog .input-wrapper input {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 1em;
+  width: 100%; }
+
+#new_party_dialog .button {
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  display: block;
+  float: right;
+  font-size: 1.5em;
+  min-width: 6em;
+  padding: .3em .7em; }
+
+#new_party_dialog #add_party_button {
+  background-color: #a00; }
+
+#new_party_dialog #close_button {
+  background-color: #999;
+  float: left; }
 
 .clear {
   clear: both; }
@@ -215,4 +257,24 @@ body {
     width: 30%; }
 
   .party .button.notify .phone {
-    font-size: .5em; } }
+    font-size: .5em; }
+
+  #dialog_container {
+    margin: 6em 10%;
+    padding: 1em 1em; }
+
+  #dialog_container .dialog-title {
+    font-size: 1.2em;
+    font-weight: bold; }
+
+  #new_party_dialog .input-wrapper {
+    font-size: 1em; }
+
+  #new_party_dialog #add_party_button,
+  #new_party_dialog #close_button {
+    display: block;
+    float: none;
+    font-size: 1em;
+    margin: 10px 0;
+    padding: .7em 0;
+    width: 100%; } }

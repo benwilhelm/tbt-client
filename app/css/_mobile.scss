@@ -12,4 +12,11 @@
   .buttons.col-right { clear: both; float: none; margin-top: 10px; width: auto; }
   .party .button { display: block; float: left; font-size: medium; height: 2em; padding: 5px 0; width: 30%; }
   .party .button.notify .phone { font-size: .5em; }
+
+
+  #dialog_container { margin: 6em 10%; padding: 1em 1em; }
+  #dialog_container .dialog-title { font-size: 1.2em; font-weight: bold; }
+  #new_party_dialog .input-wrapper { font-size: 1em; }
+  #new_party_dialog #add_party_button,
+  #new_party_dialog #close_button { display: block; float: none; font-size: 1em; margin: 10px 0; padding: .7em 0; width: 100%; }
 }
