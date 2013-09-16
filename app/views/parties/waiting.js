@@ -22,14 +22,20 @@ App.Views.PartyWaiting = Ember.View.extend({
       
     seat: function(party) {
       "use strict" ;
-      this.get('controller.controllers.party').send('seat',party) ;
-      this.destroy() ;
+      var view = this ;
+      this.$().highlightFade(function(){
+        view.get('controller.controllers.party').send('seat',party) ;
+        view.destroy() ;
+      }) ;
     },
   
     cancel: function(party) {
       "use strict" ;
-      this.get('controller.controllers.party').send('cancel',party) ;
-      this.destroy() ;
+      var view = this ;
+      this.$().highlightFade(function(){
+        view.get('controller.controllers.party').send('cancel',party) ;
+        view.destroy() ;
+      });
     }
   }
 }) ;

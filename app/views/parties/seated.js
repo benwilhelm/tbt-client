@@ -6,16 +6,22 @@ App.Views.PartySeated = Ember.View.extend({
   actions: {
     unseat: function(party){
       "use strict" ;
-      this.get('controller.controllers.party').send('unseat',party) ;
-      this.get('controller.content').removeObject(party) ;
-      this.destroy() ;
+      var view = this ;
+      this.$().highlightFade(function(){
+        view.get('controller.controllers.party').send('unseat',party) ;
+        view.get('controller.content').removeObject(party) ;
+        view.destroy() ;
+      });
     },
   
     cancel: function(party) {
       "use strict" ;
-      this.get('controller.controllers.party').send('cancel',party) ;
-      this.get('controller.content').removeObject(party) ;
-      this.destroy() ;
+      var view = this ;
+      this.$().highlightFade(function(){
+        view.get('controller.controllers.party').send('cancel',party) ;
+        view.get('controller.content').removeObject(party) ;
+        view.destroy() ;
+      });
     }
   }
 }) ;

@@ -1,4 +1,9 @@
 @media screen and (max-width: 768px) {
+  .party .button { font-size: 1.2em; }
+  .party .col-left { width: 50%; }
+}
+
+@media screen and (max-width: 660px) {
   #app_header { height: 5em; }
   #app_menu li { font-size: .9em; }
   
@@ -9,8 +14,8 @@
   .party .time-taken,
   .party .time-promised { font-size: .7em; }
   
-  .buttons.col-right { clear: both; float: none; margin-top: 10px; width: auto; }
-  .party .button { display: block; float: left; font-size: medium; height: 2em; padding: 5px 0; width: 30%; }
+  .party .buttons { clear: both; float: none; margin-top: 10px; width: auto; }
+  .party .button { display: block; float: left; font-size: medium; height: 2em; padding: .6em 0; width: 30%; }
   .party .button.notify .phone { font-size: .5em; }
 
 
@@ -19,4 +24,5 @@
   #new_party_dialog .input-wrapper { font-size: 1em; }
   #new_party_dialog #add_party_button,
   #new_party_dialog #close_button { display: block; float: none; font-size: 1em; margin: 10px 0; padding: .7em 0; width: 100%; }
+  #open_add_party_dialog { width: 100% ; }
 }

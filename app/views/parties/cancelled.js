@@ -6,8 +6,11 @@ App.Views.PartyCancelled = Ember.View.extend({
   actions: {
     restore: function(party) {
       "use strict" ;
-      this.get('controller.controllers.party').send('restore',party) ;
-      this.get('controller.content').removeObject(party) ;
+      var view = this ;
+      this.$().highlightFade(function(){
+        view.get('controller.controllers.party').send('restore',party) ;
+        view.get('controller.content').removeObject(party) ;
+      });
     }
   }
 }) ;

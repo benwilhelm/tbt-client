@@ -15,6 +15,14 @@ App.ApplicationController = Ember.Controller.extend({
     Ember.run.later(function(){
       controller.runClock() ;
     },1000) ;
+  },
+  
+  actions: {
+    toTop: function() {
+      "use strict";
+      console.log('to top') ;
+      $("body").scrollTop(0) ;
+    }
   }
   
 }) ;
