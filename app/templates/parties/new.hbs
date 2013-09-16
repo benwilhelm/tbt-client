@@ -7,14 +7,19 @@
   </p>
   <p class="party-size input-wrapper">
     <label for="party_size">Size:</label>
-    <input type="text" name="party_size" id="party_size" />
+    <input type="number" name="party_size" id="party_size" />
   </p>
   <p class="party-phone input-wrapper">
     <label for="party_phone">Phone:</label>
     <input type="text" name="party_phone" id="party_phone" />
   </p>
+  <p class="party-wait input-wrapper">
+    <label for="party_phone">Wait <span>(min)</span>:</label>
+    <input type="number" name="party_wait" id="party_wait" />
+  </p>
   
-  <button id='add_party_button' class="button">Add Party</button>
-  <button id='close_button' class="button">Close</button>
+  <button {{action addParty target='view'}} id='add_party_button' class="button">Add Party</button>
+  <button {{action closeAddPartyDialog}} id='close_button' class="button">Close</button>
   <div class="clear"></div>
+  <p class="status">{{statusMessage}}&nbsp;</p>
 </div><!-- #new_party_dialog -->

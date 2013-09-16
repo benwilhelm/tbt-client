@@ -12,10 +12,8 @@ body { background-color: #eee; font-family: "Helvetica", "Arial", sans-serif; ma
   .party .party-info { padding-left: 7em; }
   .party .party-size { float: left; font-size: 5em; line-height: 1; margin-left: -1.4em; text-align: center; width: 1.4em; }
   .party .name { font-size: 2em; }
-  .party .time-taken, 
-  .party .time-promised { padding-top: .3em; }
-  .party .time-taken span,
-  .party .time-promised span { display: inline-block; width: 8em; }
+  .party .time { padding-top: .3em; }
+  .party .time span { display: inline-block; width: 8em; }
   
   .party .button { font-weight: lighter; background-color: #ddd; border-bottom: 1px solid #888; border-radius: 3px; color: #fff; float: right; font-size: 1.6em; height: 2em; margin: .2em; padding: .8em 0 ; text-align: center; width: 4.5em; }
     .party .button:hover {  cursor: pointer; }
@@ -29,6 +27,8 @@ body { background-color: #eee; font-family: "Helvetica", "Arial", sans-serif; ma
   .party .button.cancel { background-color: #000; }
     .party .button.restore { background-color: #888; border-bottom-color: #333; }
 
+#open_add_party_dialog { display: block; background-color: #fff; border: 1px solid #888; border-bottom-color: #333; border-radius: 3px; font-size: 2em; margin: 5px auto; padding: .5em 0; position: relative; width: 10em; }
+
 #app_footer { background-color: #960202; border-top: 1px solid #300; color: #fff; position: fixed; left: 0; bottom: 0; width: 100% ; z-index: 100; }
   #app_footer a.button { background-color: #a11; color: #fff; font-size: 2.5em; display: block; float: right; padding: 0 .5em .25em; text-decoration: none; }
   #app_footer a.to-top { float: right; }
@@ -37,12 +37,15 @@ body { background-color: #eee; font-family: "Helvetica", "Arial", sans-serif; ma
 #modal_overlay { background-color: rgba(128,128,128,0.75); height: 100%; left: 0; position: fixed; top: 0; width: 100%; z-index: 99 }  
 #dialog_container { background-color: #fff; border: 1px solid #bbb; border-bottom-color: #666; border-radius: 3px; margin: 7em 20%; padding: 1em 2em; }
 #dialog_container .dialog-title { font-size: 2em; font-weight: normal; margin: 0; text-align: center; }
-#new_party_dialog .input-wrapper { font-size: 1.5em; padding-left: 4em; }
-#new_party_dialog .input-wrapper label { display: block; float:left; margin-left: -4em; padding-right: .25em; position: relative; text-align: right; width: 3.5em;}
+#new_party_dialog .input-wrapper { font-size: 1.5em; padding-left: 5em; }
+#new_party_dialog .input-wrapper label { display: block; float:left; margin-left: -5em; padding-right: .25em; position: relative; text-align: right; width: 4.5em;}
+  #new_party_dialog .input-wrapper label span { font-size: medium; }
 #new_party_dialog .input-wrapper input { border: none; border-bottom: 1px solid #ccc; font-size: 1em; width: 100%; }
 #new_party_dialog .button { color: #fff; border: none; border-radius: 3px; display: block; float: right; font-size: 1.5em; min-width: 6em; padding: .3em .7em; }
-#new_party_dialog #add_party_button { background-color: #a00;  }
+#new_party_dialog #add_party_button { background-color: #0b9011;  }
 #new_party_dialog #close_button { background-color: #999; float: left; }
+#new_party_dialog .status { text-align: center; }
+#new_party_dialog .status.alert { background-color: #a00; color: #fff; }
 
 .clear { clear: both; }
 .col-left { float: left; width: 45% }

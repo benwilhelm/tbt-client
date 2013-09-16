@@ -28,7 +28,7 @@ App.Party.FIXTURES = [{
   "time_notified": null,
   "time_seated": null,
   "time_cancelled": moment().subtract('minute',10).format('YYYY-MM-DDTHH:mm:ss'),
-  "time_taken": moment().subtract('minute',8).format('YYYY-MM-DDTHH:mm:ss'),
+  "time_taken": moment().subtract('minute',15).format('YYYY-MM-DDTHH:mm:ss'),
   "time_promised": moment().add('minute',17).format('YYYY-MM-DDTHH:mm:ss')
 },{
   "id":4,
@@ -37,7 +37,7 @@ App.Party.FIXTURES = [{
   "phone_number": "2165095709",
   "time_notified": null,
   "time_seated": null,
-  "time_cancelled": null,
+  "time_cancelled": moment().subtract('minute',9).format('YYYY-MM-DDTHH:mm:ss'),
   "time_taken": moment().subtract('minute',12).format('YYYY-MM-DDTHH:mm:ss'),
   "time_promised": moment().add('minute',13).format('YYYY-MM-DDTHH:mm:ss')
 },{

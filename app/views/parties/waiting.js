@@ -1,4 +1,4 @@
-var moment ;
+var moment, window ;
 
 App.Views.PartyWaiting = Ember.View.extend({
   templateName: "parties/_waiting",
@@ -8,10 +8,16 @@ App.Views.PartyWaiting = Ember.View.extend({
       "use strict" ;
       this.get('controller.controllers.party').send('notify',party) ;
     },
+    
+    confirmRecall: function() {
+      "use strict" ;
+    },
   
     recall: function(party){
       "use strict" ;
-      this.get('controller.controllers.party').send('recall',party) ;
+      if (window.confirm("Would you like to recall this notification?")) {
+        this.get('controller.controllers.party').send('recall',party) ;
+      }
     },
       
     seat: function(party) {
