@@ -17,7 +17,8 @@ module.exports = function(grunt) {
       options: {
         eqeqeq:true,
         eqnull:true,
-        strict:true,
+        strict:false,
+        globalstrict:true,
         latedef:true,
         undef:true,
         globals: {
@@ -28,7 +29,8 @@ module.exports = function(grunt) {
           document:true,
           Ember:true,
           $:true,
-          App:true
+          App:true,
+          window: true
         }
       }
     },
@@ -40,7 +42,7 @@ module.exports = function(grunt) {
           'app/library/moment.js',
           'app/library/fastclick.js',
           'app/library/ember-1.0.0.js',
-          'app/library/ember-data-latest.js',
+          'app/library/ember-data-1.0.beta.3.js',
           'app/app.js',
           'debug/templates.js',
           'app/models/*.js',
@@ -55,7 +57,10 @@ module.exports = function(grunt) {
       test: {
         src:[
           'debug/app.js',
-          'app/tests/*.js'
+          'app/tests/_setup.js',
+          'app/tests/unit/*.js',
+          'app/tests/integration/*.js',
+          'app/tests/functional/*.js'
         ],
         dest:'qunit/tests.js'
       }
@@ -135,7 +140,7 @@ module.exports = function(grunt) {
           'app/css/*.scss',
           'app/templates/**/*.hbs', 
           'app/models/*.js', 
-          'app/tests/*.js'
+          'app/tests/**/*.js'
         ],
         tasks: ['jshint','ember_handlebars','concat','sass'],
         options: {

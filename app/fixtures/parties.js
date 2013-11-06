@@ -27,7 +27,7 @@ App.Party.FIXTURES = [{
   "phone_number": "3125551212",
   "time_notified": null,
   "time_seated": null,
-  "time_cancelled": moment().subtract('minute',10).format('YYYY-MM-DDTHH:mm:ss'),
+  "time_cancelled": null,
   "time_taken": moment().subtract('minute',15).format('YYYY-MM-DDTHH:mm:ss'),
   "time_promised": moment().add('minute',17).format('YYYY-MM-DDTHH:mm:ss')
 },{

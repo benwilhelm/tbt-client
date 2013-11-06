@@ -7,7 +7,6 @@ App.Views.PartyNew = Ember.View.extend({
   actions: {
     addParty: function(){
       "use strict" ;
-      console.log('adding party') ;
       var controller = this.get('controller') ;
       controller.set('statusMessage','Saving Party...') ;
       
@@ -31,7 +30,6 @@ App.Views.PartyNew = Ember.View.extend({
       }) ;
       
       party.save().then(function(){
-        console.log('saved') ;
         controller.get('content').pushObject(party) ;
         $("#new_party_dialog input").val('') ;
         controller.set('statusMessage','Saved') ;
