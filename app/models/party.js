@@ -10,37 +10,40 @@ App.Party = DS.Model.extend({
   time_taken: DS.attr('string'),
   time_promised: DS.attr('string'),
   
-  
   notified: function(){
-    "use strict";
-    return (this.get('time_notified') === null) ? false : true ;
+    return !!this.get('time_notified') ;
   }.property('time_notified'),
   
   seated: function(){
-    "use strict";
-    return (this.get('time_seated') === null) ? false : true ;
+    return !!this.get('time_seated') ;
   }.property('time_seated'),
   
   cancelled: function(){
-    "use strict";
-    return (this.get('time_cancelled') === null) ? false : true ;
+    return !!this.get('time_cancelled') ;
   }.property('time_cancelled'),
   
   waiting: function(){
-    "use strict";
     var seated = this.get('seated') ;
     var cancelled = this.get('cancelled') ;
     return (seated || cancelled) ? false : true ;
   }.property('seated','cancelled'),
   
+  overdue: function(){
+    var notified = moment(this.get('time_notified')) ;
+    var return_time = moment(App.preferences.return_time) ;
+    var clock = moment(App.clockTime);
+    
+    var diff = clock.diff(notified) ;
+    return diff >= return_time ;
+  }.property('time_notified','App.clockTime'),
+  
   countdown: function(){
-    "use strict" ;
     var notified = moment(this.get('time_notified')) ;
     var return_time = moment(App.preferences.return_time) ;
     var clock = moment(App.clockTime);
     
     var diff = clock.diff(notified) ;    
-    return return_time.diff(diff) ;
+    return Math.abs(return_time.diff(diff)) ;
     
-  }.property('model.notified','App.clockTime')
+  }.property('time_notified','App.clockTime')
 }) ;
