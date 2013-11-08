@@ -1,43 +1,36 @@
-var moment;
 App.PartyController = Ember.Controller.extend({
   actions: {
     notify: function(party){
-      "use strict";
       var time = moment().format('YYYY-MM-DDTHH:mm:ss') ;
       party.set('time_notified',time) ;
-      this.store.commit() ;
+      party.save() ;
     },
     
     recall: function(party){
-      "use strict";
       party.set('time_notified',null) ;
-      this.store.commit() ;
+      party.save() ;
     },
       
     seat: function(party) {
-      "use strict";
       var time = moment().format('YYYY-MM-DDTHH:mm:ss') ;
       party.set('time_seated',time) ;
-      this.store.commit() ;
+      party.save() ;
     },
       
     unseat: function(party) {
-      "use strict";
       party.set('time_seated',null) ;
-      this.store.commit() ;
+      party.save() ;
     },
       
     cancel: function(party) {
-      "use strict";
       var time = moment().format('YYYY-MM-DDTHH:mm:ss') ;
       party.set('time_cancelled',time) ;
-      this.store.commit() ;
+      party.save() ;
     },
       
     restore: function(party) {
-      "use strict";
       party.set('time_cancelled',null) ;
-      this.store.commit() ;
+      party.save() ;
     }
   }
 }) ;

@@ -8,6 +8,7 @@ module.exports = function(grunt) {
         'gruntfile.js',
         'app/*.js',
         'app/models/*.js',
+        'app/adapters/fixture.js',
         'app/controllers/*.js',
         'app/routes/*.js',
         'app/views/**/*.js',
@@ -30,7 +31,9 @@ module.exports = function(grunt) {
           Ember:true,
           $:true,
           App:true,
-          window: true
+          window: true,
+          moment: true,
+          DS: true
         }
       }
     },
@@ -50,7 +53,8 @@ module.exports = function(grunt) {
           'app/routes/*.js',
           'app/views/**/*.js',
           'app/helpers/*.js',
-          'app/fixtures/*.js'
+          'app/fixtures/*.js',
+          'app/adapters/fixture.js'
         ],
         dest:'debug/app.js'
       },

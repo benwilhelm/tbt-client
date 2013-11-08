@@ -2,7 +2,7 @@ var DS, moment;
 
 App.Party = DS.Model.extend({
   name: DS.attr('string') ,
-  size: DS.attr('integer'),
+  size: DS.attr('number'),
   phone_number: DS.attr('string') ,
   time_notified: DS.attr('string'),
   time_seated: DS.attr('string'),

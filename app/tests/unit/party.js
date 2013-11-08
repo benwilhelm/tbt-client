@@ -1,6 +1,6 @@
 module("Unit - Party",{
   setup: function(){
-    App.reset() ;
+    resetTests() ;    
     this.store = App.__container__.lookup("controller:application").get('store') ;
     App.preferences.return_time = 5 * 60 * 1000 ;
     Ember.run(this,function(){
@@ -11,6 +11,10 @@ module("Unit - Party",{
         time_taken: '2013-11-05T20:15:15'
       }) ;
     }) ;
+  },
+  
+  teardown: function() {
+    resetTests() ;
   }
 }) ;
 
