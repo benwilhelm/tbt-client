@@ -1,4 +1,4 @@
-App.PartyController = Ember.Controller.extend({
+App.PartiesController = Ember.Controller.extend({
   actions: {
     notify: function(party){
       var time = moment().format('YYYY-MM-DDTHH:mm:ss') ;
@@ -37,30 +37,39 @@ App.PartyController = Ember.Controller.extend({
 
 
 App.PartiesWaitingController = Ember.ArrayController.extend({
-  needs: ['party','application'],
+  needs: ['parties','application'],
   sortProperties: ["time_taken"],
   sortAscending: true,
   
   actions: {
+  
+    newParty: function(info){    
+      var c = this ;
+      var party = this.store.createRecord('party',info) ;
+      return party.save().then(function(){
+        c.get('content').pushObject(party) ;
+        return party ;
+      }) ;
+    }, 
+    
     openAddPartyDialog: function() {
-      "use strict" ;
       this.set('addingNewParty',true) ;
     },
+    
     closeAddPartyDialog: function() {
-      "use strict" ;
       this.set('addingNewParty',false) ;
     }
   }
 }) ;
 
 App.PartiesSeatedController = Ember.ArrayController.extend({
-  needs: ['party'],
+  needs: ['parties'],
   sortProperties: ["time_seated"],
   sortAscending: false
 }) ;
 
 App.PartiesCancelledController = Ember.ArrayController.extend({
-  needs: ['party'],
+  needs: ['parties'],
   sortProperties: ["time_cancelled"],
   sortAscending: false
 }) ;

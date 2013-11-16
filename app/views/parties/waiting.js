@@ -5,19 +5,19 @@ App.Views.PartyWaiting = Ember.View.extend({
 
   actions: {
     notify: function(party){
-      this.get('controller.controllers.party').send('notify',party) ;
+      this.get('controller.controllers.parties').send('notify',party) ;
     },
     
     recall: function(party){
       if (window.confirm("Would you like to recall this notification?")) {
-        this.get('controller.controllers.party').send('recall',party) ;
+        this.get('controller.controllers.parties').send('recall',party) ;
       }
     },
       
     seat: function(party) {
       var view = this ;
       this.$().highlightFade(function(){
-        view.get('controller.controllers.party').send('seat',party) ;
+        view.get('controller.controllers.parties').send('seat',party) ;
         view.destroy() ;
       }) ;
     },
@@ -25,7 +25,7 @@ App.Views.PartyWaiting = Ember.View.extend({
     cancel: function(party) {
       var view = this ;
       this.$().highlightFade(function(){
-        view.get('controller.controllers.party').send('cancel',party) ;
+        view.get('controller.controllers.parties').send('cancel',party) ;
         view.destroy() ;
       });
     }

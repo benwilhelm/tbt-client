@@ -33,7 +33,8 @@ module.exports = function(grunt) {
           App:true,
           window: true,
           moment: true,
-          DS: true
+          DS: true,
+          sinon: true
         }
       }
     },
@@ -44,6 +45,7 @@ module.exports = function(grunt) {
           'app/library/handlebars.js',
           'app/library/moment.js',
           'app/library/fastclick.js',
+          'app/library/sinon-1.7.1.js',
           'app/library/ember-1.0.0.js',
           'app/library/ember-data-1.0.beta.3.js',
           'app/app.js',
