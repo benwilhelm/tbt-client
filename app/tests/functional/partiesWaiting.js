@@ -88,7 +88,7 @@ asyncTest("Cancel Party", 4, function(){
   }) ;
 }) ;
 
-asyncTest("Add New Party", 5, function(){
+asyncTest("Add New Party", 6, function(){
   var now = moment() ;
   click("#open_add_party_dialog")
   .fillIn("#party_name", 'newparty')
@@ -104,7 +104,8 @@ asyncTest("Add New Party", 5, function(){
     var time_promised = "Time Promised: " + now.add('m',35).format("h:mm") ;
     equal($party.find('.time-taken').text(), time_taken, "New Party's time_taken should be now") ;
     equal($party.find('.time-promised').text(), time_promised, "New Party's time promised show in the name field") ;
-    equal($party.find('.button.notify').text(), "Notify (312) 555-1212", "New party's notify button should include phone number")
+    equal($party.find('.button.notify').text(), "Notify (312) 555-1212", "New party's notify button should include phone number") ;
+    equal($("#new_party_dialog").length, 0, "After saving, dialog should close") ;
     start() ;
   }) ;
 })

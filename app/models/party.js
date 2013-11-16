@@ -1,5 +1,3 @@
-var DS, moment;
-
 App.Party = DS.Model.extend({
   name: DS.attr('string') ,
   size: DS.attr('number'),
@@ -30,7 +28,7 @@ App.Party = DS.Model.extend({
   
   overdue: function(){
     var notified = moment(this.get('time_notified')) ;
-    var return_time = moment(App.preferences.return_time) ;
+    var return_time = moment(App.Settings.returnTime * 60 * 1000) ;
     var clock = moment(App.clockTime);
     
     var diff = clock.diff(notified) ;
@@ -39,7 +37,8 @@ App.Party = DS.Model.extend({
   
   countdown: function(){
     var notified = moment(this.get('time_notified')) ;
-    var return_time = moment(App.preferences.return_time) ;
+    var min = parseInt(App.Settings.returnTime,10) ;
+    var return_time = moment(min * 60 * 1000) ;
     var clock = moment(App.clockTime);
     
     var diff = clock.diff(notified) ;    

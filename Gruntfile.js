@@ -138,6 +138,7 @@ module.exports = function(grunt) {
         files: [
           'app/library/*.js',
           'app/*.js',
+          'app/adapters/*.js',
           'app/controllers/*.js',
           'app/fixtures/*.js',
           'app/helpers/*.js',

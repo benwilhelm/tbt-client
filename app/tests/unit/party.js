@@ -1,8 +1,9 @@
 module("Unit - Party",{
   setup: function(){
-    resetTests() ;    
-    this.store = App.__container__.lookup("controller:application").get('store') ;
-    App.preferences.return_time = 5 * 60 * 1000 ;
+    resetTests() ; 
+    appController = App.__container__.lookup("controller:application") ;
+    this.store = appController.get('store') ;
+    appController.loadSettings() ;
     Ember.run(this,function(){
       this.baseParty = this.store.createRecord('party',{
         name: 'baseparty',
@@ -11,6 +12,7 @@ module("Unit - Party",{
         time_taken: '2013-11-05T20:15:15'
       }) ;
     }) ;
+    return wait() ;
   },
   
   teardown: function() {

@@ -22,6 +22,7 @@ Ember.Test.registerHelper('getPartyLists', function(app,store){
 Ember.Test.registerHelper('resetTests', function(){
   App.reset() ;
   App.Party.resetFixtures() ;
+  App.Settings = {} ;
 });
 
 

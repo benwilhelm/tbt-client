@@ -25,6 +25,7 @@ App.Views.PartyNew = Ember.View.extend({
         $("#new_party_dialog input").val('') ;
         controller.set('statusMessage','Saved') ;
         controller.removeObserver('content.length') ;
+        controller.set('addingNewParty',false) ;
       }) ;
 
       controller.send('newParty',info) ;
