@@ -1,5 +1,8 @@
 body { background-color: #eee; font-family: "Helvetica", "Arial", sans-serif; margin: 6em 0 3em ; padding: 1em; }
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
 #app_header { background-color: #fff; border-bottom: 1px solid #999; height: 6em; position: fixed; top: 0; left: 0; width: 100%; z-index: 100; }
 #app_header #red_bar { background-color: #960202; color: #fff; padding: .4em; }
 #app_clock { float: right; font-size: 1.2em; }
@@ -35,6 +38,21 @@ body { background-color: #eee; font-family: "Helvetica", "Arial", sans-serif; ma
   #app_footer a.button { background-color: #a11; color: #fff; font-size: 2.5em; display: block; float: right; padding: 0 .5em .25em; text-decoration: none; }
   #app_footer a.to-top { float: right; }
   
+/* =Settings Page
+========================================*/
+
+#settings_status { margin: 0; }
+#settings .wrapper { margin: 0 0 1.5em; padding: .5em; }
+#settings .wrapper.return-time { background-color: #ddd; }
+#settings input#returnTime { font-size: 1.2em; width: 2em ; }
+#settings .wrapper.return-time label { padding-top: .6em; }
+
+#settings .wrapper.text-area { position: relative; left: -.5em; }
+#settings textarea { font-size: 1em; padding: .5em; width: 100%; }
+
+#settings .wrapper.submit-button { margin-top: -1em; text-align: right; }
+#settings a#saveSettings { background-color: #aaa; border: 1px solid #888; border-bottom-color: #444; border-top: none; border-radius: 3px; font-size: large; padding: 1em 1.5em; display: block; float: right; color: #fff; }
+  
   
 #modal_overlay { background-color: rgba(128,128,128,0.75); height: 100%; left: 0; position: fixed; top: 0; width: 100%; z-index: 99 }  
 #dialog_container { background-color: #fff; border: 1px solid #bbb; border-bottom-color: #666; border-radius: 3px; margin: 7em 20%; padding: 1em 2em; }
@@ -52,3 +70,7 @@ body { background-color: #eee; font-family: "Helvetica", "Arial", sans-serif; ma
 .clear { clear: both; }
 .col-left { float: left; width: 45% }
 .col-right { float: right; width: 55%; }
+
+.fright { float: right; }
+.fleft  { float: left;  }
+.clear  { clear: both;  }

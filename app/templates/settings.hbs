@@ -1,4 +1,50 @@
-{{#each content}}
-<h4>{{name}}</h4>
-<p>{{value}}</p>
-{{/each}}
+<div id="settings">
+  <p id="settings_status">&nbsp</p>
+
+  <div class="wrapper return-time">
+    <label class="fleft" for="returnTime">Time to allow for party return</label>
+    <div class="fright">
+      {{view Ember.TextField
+        name='returnTime'
+        id='returnTime'
+        type='number'
+        valueBinding='content.returnTime.value'
+        size='2'
+      }}
+      minutes
+    </div><!-- .fright -->
+    <div class="clear"></div>
+  </div><!-- .wrapper.return-time -->
+  
+  <div class="wrapper text-area notification-text">
+    <label for="notificationText">Notification Text</label>
+    <div>
+      {{view Ember.TextArea
+        name='notificationText'
+        id='notificationText'
+        valueBinding='content.notificationText.value'
+        rows=4
+      }}
+    </div>
+  </div><!-- .wrapper.notification-text -->
+  
+  <div class="wrapper text-area recall-text">
+    <label for="notificationText">Recall Text</label>
+    <div>
+      {{view Ember.TextArea
+        name='recallText'
+        id='recallText'
+        valueBinding='content.recallText.value'
+        rows=4
+      }}
+    </div>
+  </div><!-- .wrapper.recall-text -->
+  
+  <div class="wrapper submit-button">
+    <a class="standard-button" id='saveSettings' {{action "saveSettings"}}>
+      Save
+    </a>
+    <div class="clear"></div>
+  </div><!-- .wrapper.submit-button -->
+  
+</div><!-- #settings -->

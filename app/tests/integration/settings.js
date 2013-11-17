@@ -23,7 +23,7 @@ asyncTest("Update Settings", 9, function(){
     recallText: 'bar'
   }
   
-  this.c.send('updateSettings',newSettings) ;
+  this.c.updateSettings(newSettings) ;
   var mod = this ;
   wait().then(function(){
     return mod.store.findAll('setting') ;
