@@ -17,11 +17,13 @@ Ember.Test.registerHelper('getPartyLists', function(app,store){
       cancelled: c.get('content')
     }
   })
+
 }) ;
 
 Ember.Test.registerHelper('resetTests', function(){
   App.reset() ;
   App.Party.resetFixtures() ;
+  App.Setting.resetFixtures() ;
   App.Settings = {} ;
 });
 

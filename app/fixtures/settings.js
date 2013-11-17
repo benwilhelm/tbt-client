@@ -6,11 +6,11 @@ App.Setting.resetFixtures = function(){
   },{
     "id":2,
     "name": "notificationText" ,
-    "value": "Your table is ready. This is an automated message. Please do not reply to it."
+    "value": "Your table is ready. Please do not reply; this is an automated message."
   },{
     "id":3,
     "name": "recallText" ,
-    "value": "We're sorry, but we mistakenly notified you that your table is ready. It is not yet ready. This is an automated message. Please do not reply to it."
+    "value": "We're sorry, but we mistakenly notified you that your table is ready. It is not yet ready. Please do not reply; this is an automated message."
   }];
 };
 App.Setting.resetFixtures() ;

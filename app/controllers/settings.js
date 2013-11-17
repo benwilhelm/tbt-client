@@ -13,7 +13,6 @@ App.SettingsController = Ember.Controller.extend({
         var idx = indices[i] ;
         if (s[idx]) {
           var val = s[idx] ;
-          App.Settings[idx] = val ;
           promises[idx] = this.store.find('setting',{'name':idx}) ;
         }
       }

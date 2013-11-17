@@ -40,7 +40,7 @@ App.Router.map(function() {
 
 
 //Ember.onerror = App.errorHandler ;
-//Ember.RSVP.configure('onerror', App.errorHandler) ;
+Ember.RSVP.configure('onerror', App.errorHandler) ;
 //App.ApplicationRoute = Ember.Route.extend({
 //  actions: { error: App.errorHandler }
 //});

@@ -14,8 +14,8 @@ module("Integration - Settings", {
 
 asyncTest("Update Settings", 9, function(){
   equal(App.Settings.returnTime, 5, "Default returnTime should be 5 minutes") ;
-  equal(App.Settings.notificationText, "Your table is ready. This is an automated message. Please do not reply to it.", "Check default notification text") ;
-  equal(App.Settings.recallText, "We're sorry, but we mistakenly notified you that your table is ready. It is not yet ready. This is an automated message. Please do not reply to it.", "Check default recall text") ;
+  equal(App.Settings.notificationText, "Your table is ready. Please do not reply; this is an automated message.", "Check default notification text") ;
+  equal(App.Settings.recallText, "We're sorry, but we mistakenly notified you that your table is ready. It is not yet ready. Please do not reply; this is an automated message.", "Check default recall text") ;
   
   var newSettings = {
     returnTime: '10',
@@ -24,10 +24,6 @@ asyncTest("Update Settings", 9, function(){
   }
   
   this.c.send('updateSettings',newSettings) ;
-  equal(App.Settings.returnTime, 10, "New returnTime setting should be 10") ;
-  equal(App.Settings.notificationText, 'foo', "New notificationText setting should be 'foo'") ;
-  equal(App.Settings.recallText, 'bar', "New recallText setting should be 'bar'") ;
-
   var mod = this ;
   wait().then(function(){
     return mod.store.findAll('setting') ;
@@ -43,6 +39,11 @@ asyncTest("Update Settings", 9, function(){
       if (name === 'recallText') 
         equal(setting.get('value'), 'bar', "Store's updated recallText setting should be 'bar'") ;
     }) ;
+  
+    // check that saving sets App.Settings
+    equal(App.Settings.returnTime, 10, "New returnTime setting should be 10") ;
+    equal(App.Settings.notificationText, 'foo', "New notificationText setting should be 'foo'") ;
+    equal(App.Settings.recallText, 'bar', "New recallText setting should be 'bar'") ;
   
     start() ;
   }) ;  
