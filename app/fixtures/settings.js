@@ -12,5 +12,5 @@ App.Setting.resetFixtures = function(){
     "name": "recallText" ,
     "value": "We're sorry, but we mistakenly notified you that your table is ready. It is not yet ready. Please do not reply; this is an automated message."
   }];
+  
 };
-App.Setting.resetFixtures() ;

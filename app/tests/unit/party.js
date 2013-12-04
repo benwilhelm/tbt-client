@@ -1,26 +1,31 @@
 module("Unit - Party",{
   setup: function(){
-    resetTests() ; 
-    appController = App.__container__.lookup("controller:application") ;
-    this.store = appController.get('store') ;
-    appController.loadSettings() ;
+    var mod = this;
     Ember.run(this,function(){
-      this.baseParty = this.store.createRecord('party',{
-        name: 'baseparty',
-        size: 2,
-        phone_number: '3125551212',
-        time_taken: '2013-11-05T20:15:15'
-      }) ;
+      var appController = App.__container__.lookup("controller:application") ;
+      mod.appC = appController ;
+      mod.store = appController.store ;
+      resetTests(mod.store).then(function(){
+        appController.loadSettings() ;
+        mod.baseParty = mod.store.createRecord('party',{
+          name: 'baseparty',
+          size: 2,
+          phone_number: '3125551212',
+          time_taken: '2013-11-05T20:15:15'
+        }) ;
+      }) ; 
     }) ;
     return wait() ;
   },
   
-  teardown: function() {
-    resetTests() ;
+  teardown: function(){
+    destroy(this.store, this.appC) ;
+    return wait() ;
   }
+  
 }) ;
 
-test("party.notified", function() {
+test("party.notified", 2, function() {
   var party = this.baseParty;
   equal(false, party.get('notified'), "initially, party.notified should be false") ;
   Ember.run(function(){
@@ -29,7 +34,7 @@ test("party.notified", function() {
   });
 });
 
-test("party.seated", function() {
+test("party.seated", 2, function() {
   var party = this.baseParty;
   equal(false, party.get('seated'), "initially, party.seated should be false") ;
   Ember.run(function(){
@@ -38,7 +43,7 @@ test("party.seated", function() {
   });
 });
 
-test("party.waiting depends on party.time_seated", function() {
+test("party.waiting depends on party.time_seated", 3, function() {
   var party = this.baseParty;
   equal(true, party.get('waiting'), "initially, party.waiting should be true") ;
   Ember.run(function(){
@@ -90,6 +95,7 @@ test("party.countdown should count down seconds", function(){
   Ember.run(function(){
     party.set('time_notified',now.subtract('minute',1).format("YYYY-MM-DDTHH:mm:ss")) ;  
     var rem = Math.round(party.get('countdown')/1000) ;
+    console.log(rem) ;
     ok(Math.abs(rem-(4*60)) <= 1, "countdown should equal 4 min give or take a second") ;
   });
   

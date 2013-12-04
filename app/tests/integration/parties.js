@@ -1,12 +1,10 @@
 module("Integration - Party", {
   setup: function() {
-    resetTests() ;
-    this.c = App.__container__.lookup("controller:parties") ;
-    this.store = this.c.store ;
-  },
-  
-  teardown: function() {
-    resetTests() ;
+    Ember.run(this,function(){
+      this.c = App.__container__.lookup("controller:parties") ;
+      this.store = this.c.store ;
+      resetTests(this.store) ;
+    }) ;
   }
 });
 
@@ -14,17 +12,20 @@ module("Integration - Party", {
 asyncTest("parties.actions.notify", 2, function(){
   var mod = this ;
   var party, stamp ;
-  getPartyLists(mod.store).then(function(parties){
-    party = parties.waiting[0] ;
-    equal(party.get('time_notified'), null, "time_notified should initially be null") ;
-    stamp = moment() ;
-    return mod.c.send('notify',party) ;
-  }).then(function(){
-    Ember.run.later(function(){
-      equal(party.get('time_notified'), stamp.format("YYYY-MM-DDTHH:mm:ss"), "time_notified should reflect time sent") ;
-      start() ;
-    }, 2000) ;
-  }) ;
+  Ember.run(this,function(){
+    getPartyLists(mod.store).then(function(parties){
+      console.log(parties.waiting) ;
+      party = parties.waiting[0] ;
+      equal(party.get('time_notified'), null, "time_notified should initially be null") ;
+      stamp = moment() ;
+      return mod.c.send('notify',party) ;
+    }).then(function(){
+      Ember.run.later(function(){
+        equal(party.get('time_notified'), stamp.format("YYYY-MM-DDTHH:mm:ss"), "time_notified should reflect time sent") ;
+        start() ;
+      }, 2000) ;
+    }) ;
+  });
 })
 
 asyncTest("parties.actions.recall", 2, function(){

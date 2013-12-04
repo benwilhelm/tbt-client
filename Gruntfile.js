@@ -2,6 +2,8 @@ module.exports = function(grunt) {
   'use strict';
   //All grunt related functions
 
+  var adapter = grunt.option('adapter') ? grunt.option('adapter') : "fixture" ;
+
   grunt.initConfig({
     jshint: {
       files: [
@@ -48,6 +50,7 @@ module.exports = function(grunt) {
           'app/library/sinon-1.7.1.js',
           'app/library/ember-1.0.0.js',
           'app/library/ember-data-1.0.beta.3.js',
+          'app/library/localstorage_adapter.js',
           'app/app.js',
           'debug/templates.js',
           'app/models/*.js',
@@ -56,7 +59,7 @@ module.exports = function(grunt) {
           'app/views/**/*.js',
           'app/helpers/*.js',
           'app/fixtures/*.js',
-          'app/adapters/fixture.js'
+          'app/adapters/' + adapter + ".js"
         ],
         dest:'debug/app.js'
       },
@@ -94,9 +97,6 @@ module.exports = function(grunt) {
           processPartialName: function(fileName) {
             var arr = fileName.split(".") ;
             var path = arr[arr.length - 2].split("/") ;
-            //var hbsName = path[path.length-1]
-            //hbsName = hbsName.substring(1) ;
-            //path[path.length-1] = hbsName ;
             path.shift() ;
             path.shift() ;
             var name = path.join("/") ;
@@ -202,7 +202,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-zip');
-  grunt.registerTask('default', ['ember_handlebars','concat','sass','clean','copy','connect','qunit','watch']);
-  grunt.registerTask('release', ['jshint','uglify','cssmin','clean','copy']);
+  grunt.registerTask('default', ['ember_handlebars','concat','sass','clean','copy','connect','watch']);
+  grunt.registerTask('release', ['qunit','jshint','uglify','cssmin','clean','copy']);
   grunt.registerTask('package_release',['release','zip']);
 };

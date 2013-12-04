@@ -20,12 +20,43 @@ Ember.Test.registerHelper('getPartyLists', function(app,store){
 
 }) ;
 
-Ember.Test.registerHelper('resetTests', function(){
+Ember.Test.registerHelper('resetTests', function(app,store){
+
   App.reset() ;
+
+  App.Settings = {} ;
   App.Party.resetFixtures() ;
   App.Setting.resetFixtures() ;
-  App.Settings = {} ;
+
+  var promises = [
+    loadFixtures(store,'party'),
+    loadFixtures(store,'setting')
+  ];
+  
+  return Ember.RSVP.all(promises) ;
 });
+
+Ember.Test.registerHelper('loadFixtures', function(app,store,table){
+  var promises = [] ;
+  var tableKey = table.charAt(0).toUpperCase() + table.slice(1).toLowerCase() ;
+  var fixtures = App[tableKey].FIXTURES ;
+  
+  App[tableKey].FIXTURES.forEach(function(fixture){
+    var newRecord = store.createRecord(table,fixture) ;
+    promises.push(newRecord.save()) ;
+  }) ;
+    
+  return Ember.RSVP.all(promises) ;
+}) ;
+
+Ember.Test.registerHelper('destroy', function(){
+  Ember.run(function(){
+    for (var i=0; i<arguments.length; i++){
+      var arg = arguments[i] ;
+      arg.destroy() ;
+    }
+  });
+}) ;
 
 
 QUnit.testSkip = function() {
