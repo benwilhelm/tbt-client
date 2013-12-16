@@ -35,6 +35,6 @@ App.ApplicationAdapter = DS.FixtureAdapter.extend({
 
 });
 App.ApplicationSerializer = DS.JSONSerializer.extend({}) ;
-App.Party.resetFixtures() ;
-App.Setting.resetFixtures() ;
+App.Party.loadFixtures() ;
+App.Setting.loadFixtures() ;
 App.AdapterType = 'fixture' ;

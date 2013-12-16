@@ -23,7 +23,6 @@ asyncTest("Saving should update corresponding App.Setting", 3, function(){
   Ember.run(this,function(){
     equal(App.Settings.returnTime, 5, "Initially, App.Settings.returnTime should be 5") ;
     mod.store.find('setting',{name:'returnTime'}).then(function(rslt){
-      console.log(rslt.get('content')) ;
       var setting = rslt.objectAt(0) ;
       setting.set('value', 10) ;
       return setting.save() ;

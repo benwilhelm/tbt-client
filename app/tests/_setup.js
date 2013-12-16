@@ -25,27 +25,31 @@ Ember.Test.registerHelper('resetTests', function(app,store){
   App.reset() ;
 
   App.Settings = {} ;
-  App.Party.resetFixtures() ;
-  App.Setting.resetFixtures() ;
+  App.Party.loadFixtures() ;
+  App.Setting.loadFixtures() ;
 
   var promises = [
-    loadFixtures(store,'party'),
-    loadFixtures(store,'setting')
+    resetFixtures(store,'party'),
+    resetFixtures(store,'setting')
   ];
   
   return Ember.RSVP.all(promises) ;
 });
 
-Ember.Test.registerHelper('loadFixtures', function(app,store,table){
+Ember.Test.registerHelper('resetFixtures', function(app,store,table){
+
+  clearLSTable(table) ;
+
   var promises = [] ;
   var tableKey = table.charAt(0).toUpperCase() + table.slice(1).toLowerCase() ;
   var fixtures = App[tableKey].FIXTURES ;
   
   App[tableKey].FIXTURES.forEach(function(fixture){
     var newRecord = store.createRecord(table,fixture) ;
-    promises.push(newRecord.save()) ;
+    var p = newRecord.save()
+    promises.push(p) ;
   }) ;
-    
+  
   return Ember.RSVP.all(promises) ;
 }) ;
 
@@ -56,6 +60,19 @@ Ember.Test.registerHelper('destroy', function(){
       arg.destroy() ;
     }
   });
+}) ;
+
+Ember.Test.registerHelper('clearLSTable', function(app,table){
+  var key = 'App.' + table.charAt(0).toUpperCase() + table.slice(1) ;
+  var ns = App.CONSTANTS.dbNamespace ;
+  
+  var data = localStorage.getItem(ns) ;
+  var obj  = data ? JSON.parse(data) : {} ;
+  
+  obj[key] = { records: {} } ;
+  data = JSON.stringify(obj) ;
+  
+  localStorage.setItem(ns,data) ;
 }) ;
 
 

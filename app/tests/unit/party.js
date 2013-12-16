@@ -95,7 +95,6 @@ test("party.countdown should count down seconds", function(){
   Ember.run(function(){
     party.set('time_notified',now.subtract('minute',1).format("YYYY-MM-DDTHH:mm:ss")) ;  
     var rem = Math.round(party.get('countdown')/1000) ;
-    console.log(rem) ;
     ok(Math.abs(rem-(4*60)) <= 1, "countdown should equal 4 min give or take a second") ;
   });
   

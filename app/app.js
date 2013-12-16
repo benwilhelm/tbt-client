@@ -20,6 +20,9 @@ var App = Ember.Application.create({
     
     // this should probably only be done in a debug build
     console.log(msg) ;
+    
+    // use for debugging
+    throw msg ;
   },
   Settings: {}
 });
@@ -27,6 +30,9 @@ var App = Ember.Application.create({
 
 App.rootElement = "#application";
 App.Views = {} ;
+App.CONSTANTS = {
+  dbNamespace: 'text-to-table'
+};
 
 App.Router.map(function() {
   this.resource('parties',function(){
