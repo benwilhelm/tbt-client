@@ -1,14 +1,14 @@
 module("Functional - Parties Cancelled", {
   setup: function() {
-    resetTests() ;
-    this.c = App.__container__.lookup("controller:parties_cancelled") ;
-    this.pc = App.__container__.lookup("controller:parties") ;
-    this.store = this.c.store ;
-    visit("/parties/cancelled") ;
-  },
-  
-  teardown: function() {
-    resetTests() ;
+
+    Ember.run(this, function(){
+      this.c = App.__container__.lookup("controller:parties_cancelled") ;
+      this.pc = App.__container__.lookup("controller:parties") ;
+      this.store = this.c.store ;
+      resetTests(this.store).then(function(){
+        visit("/parties/cancelled") ;
+      }) ;
+    }) ;
   }
 }) ;
 

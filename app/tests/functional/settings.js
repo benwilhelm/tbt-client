@@ -1,13 +1,12 @@
 module("Functional - Settings", {
   setup: function() {
-    resetTests() ;
-    this.c = App.__container__.lookup("controller:settings") ;
-    this.store = this.c.store ;
-    visit("/settings") ;
-  },
-  
-  teardown: function() {
-    resetTests() ;
+    Ember.run(this,function(){
+      this.c = App.__container__.lookup("controller:settings") ;
+      this.store = this.c.store ;
+      resetTests(this.store).then(function(){
+        visit("/settings") ;
+      }) ;
+    });
   }
 }) ;
 

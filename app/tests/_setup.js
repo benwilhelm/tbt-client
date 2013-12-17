@@ -73,6 +73,11 @@ Ember.Test.registerHelper('clearLSTable', function(app,table){
   data = JSON.stringify(obj) ;
   
   localStorage.setItem(ns,data) ;
+
+  // load data into adapter
+  var adapter = App.__container__.lookup('adapter:application') ;
+  adapter._loadData() ;
+  
 }) ;
 
 

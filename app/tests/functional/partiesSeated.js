@@ -1,14 +1,13 @@
 module("Functional - Parties Seated", {
   setup: function() {
-    resetTests() ;
-    this.c = App.__container__.lookup("controller:parties_seated") ;
-    this.pc = App.__container__.lookup("controller:parties") ;
-    this.store = this.c.store ;
-    visit("/parties/seated") ;
-  },
-  
-  teardown: function() {
-    resetTests() ;
+    Ember.run(this,function(){
+      this.c = App.__container__.lookup("controller:parties_seated") ;
+      this.pc = App.__container__.lookup("controller:parties") ;
+      this.store = this.c.store ;
+      resetTests(this.store).then(function(){
+        visit("/parties/seated") ;  
+      }) ;
+    });
   }
 }) ;
 

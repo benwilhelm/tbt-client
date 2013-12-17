@@ -1,14 +1,13 @@
 module("Functional - Parties Waiting", {
   setup: function() {
-    resetTests() ;
-    this.c = App.__container__.lookup("controller:parties_waiting") ;
-    this.pc = App.__container__.lookup("controller:parties") ;
-    this.store = this.c.store ;
-    visit("/parties/waiting") ;
-  },
-  
-  teardown: function() {
-    resetTests() ;
+    Ember.run(this,function(){
+      this.c = App.__container__.lookup("controller:parties_waiting") ;
+      this.pc = App.__container__.lookup("controller:parties") ;
+      this.store = this.c.store ;
+      resetTests(this.store).then(function(){
+        visit("/parties/waiting") ;
+      }) ;
+    });
   }
 }) ;
 

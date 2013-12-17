@@ -1,14 +1,11 @@
 module("Integration - Settings", {
   setup: function() {
-    resetTests() ;
-    this.appController = App.__container__.lookup("controller:application") ;
-    this.c = App.__container__.lookup("controller:settings") ;
-    this.store = this.c.store ;
-    wait() ;
-  },
-  
-  teardown: function() {
-    resetTests() ;
+    Ember.run(this,function(){
+      this.appController = App.__container__.lookup("controller:application") ;
+      this.c = App.__container__.lookup("controller:settings") ;
+      this.store = this.c.store ;
+      resetTests(this.store) ;
+    }) ;
   }
 });
 
@@ -23,31 +20,33 @@ asyncTest("Update Settings", 9, function(){
     recallText: 'bar'
   }
   
-  this.c.updateSettings(newSettings) ;
   var mod = this ;
-  wait().then(function(){
-    return mod.store.findAll('setting') ;
-  }).then(function(settings){
-    settings.forEach(function(setting){
-      var name = setting.get('name') ;
-      if (name === 'returnTime') 
-        equal(setting.get('value'), 10, "Store's updated returnTime setting should be 10") ;
+
+  Ember.run(this,function(){
+  
+    this.c.updateSettings(newSettings).then(function(){
+      return mod.store.findAll('setting') ;
+    }).then(function(settings){
+      settings.forEach(function(setting){
+        var name = setting.get('name') ;
+        if (name === 'returnTime') 
+          equal(setting.get('value'), 10, "Store's updated returnTime setting should be 10") ;
+        
+        if (name === 'notificationText') 
+          equal(setting.get('value'), 'foo', "Store's updated notificationText setting should be 'foo'") ;
       
-      if (name === 'notificationText') 
-        equal(setting.get('value'), 'foo', "Store's updated notificationText setting should be 'foo'") ;
+        if (name === 'recallText') 
+          equal(setting.get('value'), 'bar', "Store's updated recallText setting should be 'bar'") ;
+      }) ;
     
-      if (name === 'recallText') 
-        equal(setting.get('value'), 'bar', "Store's updated recallText setting should be 'bar'") ;
-    }) ;
-  
-    // check that saving sets App.Settings
-    equal(App.Settings.returnTime, 10, "New returnTime setting should be 10") ;
-    equal(App.Settings.notificationText, 'foo', "New notificationText setting should be 'foo'") ;
-    equal(App.Settings.recallText, 'bar', "New recallText setting should be 'bar'") ;
-  
-    start() ;
-  }) ;  
-  
+      // check that saving sets App.Settings
+      equal(App.Settings.returnTime, 10, "New returnTime setting should be 10") ;
+      equal(App.Settings.notificationText, 'foo', "New notificationText setting should be 'foo'") ;
+      equal(App.Settings.recallText, 'bar', "New recallText setting should be 'bar'") ;
+    
+      start() ;
+    }) ;  
+  }) ;
 }) ;
 
 

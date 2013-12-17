@@ -1,35 +1,34 @@
 module("Integration - Parties Waiting", {
   setup: function() {
-    resetTests() ;
-    this.c = App.__container__.lookup("controller:parties_waiting") ;
-    this.store = this.c.store ;
     Ember.run(this,function(){
+      this.c = App.__container__.lookup("controller:parties_waiting") ;
+      this.store = this.c.store ;
+      resetTests(this.store) ;
       this.baseParty = this.store.createRecord('party',{
         name: 'baseparty',
         size: 2,
         phone_number: '3125551212',
         time_taken: '2013-11-05T20:15:15'
       }) ;
+      wait() ;
     }) ;
-  },
-  
-  teardown: function() {
-    resetTests() ;
   }
 });
 
 
-test("parties.waiting.openAddPartyDialog", function(){
+asyncTest("parties.waiting.openAddPartyDialog", function(){
   equal(this.c.get('addingNewParty'), undefined, "addingNewParty should initally be undefined") ;
   this.c.send('openAddPartyDialog') ;
   equal(this.c.get('addingNewParty'), true, "after sending 'openAddPartyDialog, addingNewParty should be true") ;
+  start() ;
 }) ;
 
-test("parties.waiting.closeAddPartyDialog", function(){
+asyncTest("parties.waiting.closeAddPartyDialog", function(){
   this.c.set('addingNewParty',true) ;
   equal(this.c.get('addingNewParty'), true, "addingNewParty should initally be true") ;
   this.c.send('closeAddPartyDialog') ;
   equal(this.c.get('addingNewParty'), false, "after sending 'closeAddPartyDialog, addingNewParty should be false") ;
+  start() ;
 }) ;
 
 /**
