@@ -26,6 +26,7 @@ App.SettingsController = Ember.Controller.extend({
       return saving ;
     }).then(null,function(saving){
       // error saving
+      console.log('error saving settings') ;
     }) ;
   },
 

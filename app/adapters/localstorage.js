@@ -10,6 +10,8 @@ App.ApplicationAdapter = DS.LSAdapter.extend({
    */
   query: function(records,query){
     
+    console.log(query) ;
+    
     if (query.waiting) {
       delete query.waiting ;
       query.time_seated = null ;
