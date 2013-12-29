@@ -1,13 +1,14 @@
 App.Setting.loadFixtures = function(){
-  App.Setting.FIXTURES = [{
-    "name": "returnTime" ,
-    "value": 5
-  },{
-    "name": "notificationText" ,
-    "value": "Your table is ready. Please do not reply; this is an automated message."
-  },{
-    "name": "recallText" ,
-    "value": "We're sorry, but we mistakenly notified you that your table is ready. It is not yet ready. Please do not reply; this is an automated message."
-  }];
+  var ctr = App.__container__.lookup("controller:settings") ;
+  var defaultSettings = ctr.get('defaultSettings') ;
+  App.Setting.FIXTURES = [] ;
   
+  for (var key in defaultSettings) {
+    var val = defaultSettings[key] ;
+    var o = {
+      name: key,
+      value: val 
+    };
+    App.Setting.FIXTURES.push(o) ;
+  }
 };

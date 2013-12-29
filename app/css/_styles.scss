@@ -36,6 +36,7 @@ input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
 
 #app_footer { background-color: #960202; border-top: 1px solid #300; color: #fff; position: fixed; left: 0; bottom: 0; width: 100% ; z-index: 100; }
   #app_footer a.button { background-color: #a11; color: #fff; font-size: 2.5em; display: block; float: right; padding: 0 .5em .25em; text-decoration: none; }
+  #app_footer a.clear-lists { float: left; font-size: 1.5em; padding: .6em; }
   #app_footer a.to-top { float: right; }
   
 /* =Settings Page
@@ -43,9 +44,11 @@ input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
 
 #settings_status { margin: 0; }
 #settings .wrapper { margin: 0 0 1.5em; padding: .5em; }
-#settings .wrapper.return-time { background-color: #ddd; }
-#settings input#returnTime { font-size: 1.2em; width: 2em ; }
-#settings .wrapper.return-time label { padding-top: .6em; }
+#settings .wrapper.stripe { background-color: #ddd; }
+#settings .wrapper.stripe input { font-size: 1.2em; }
+#settings .wrapper.stripe label { padding-top: .6em; }
+#settings input#accountEmail { width: 15em ; }
+#settings input#returnTime { width: 2em ; }
 
 #settings .wrapper.text-area { position: relative; left: -.5em; }
 #settings textarea { font-size: 1em; padding: .5em; width: 100%; }

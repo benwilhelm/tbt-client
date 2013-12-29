@@ -7,6 +7,7 @@ module("Functional - Parties Cancelled", {
       this.store = this.c.store ;
       resetTests(this.store).then(function(){
         visit("/parties/cancelled") ;
+        wait() ;
       }) ;
     }) ;
   }

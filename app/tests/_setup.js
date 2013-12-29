@@ -23,7 +23,6 @@ Ember.Test.registerHelper('getPartyLists', function(app,store){
 Ember.Test.registerHelper('resetTests', function(app,store){
 
   App.reset() ;
-
   App.Settings = {} ;
   App.Party.loadFixtures() ;
   App.Setting.loadFixtures() ;
@@ -44,11 +43,13 @@ Ember.Test.registerHelper('resetFixtures', function(app,store,table){
   var tableKey = table.charAt(0).toUpperCase() + table.slice(1).toLowerCase() ;
   var fixtures = App[tableKey].FIXTURES ;
   
-  App[tableKey].FIXTURES.forEach(function(fixture){
-    var newRecord = store.createRecord(table,fixture) ;
-    var p = newRecord.save()
-    promises.push(p) ;
-  }) ;
+  if (fixtures) {
+    fixtures.forEach(function(fixture){
+      var newRecord = store.createRecord(table,fixture) ;
+      var p = newRecord.save()
+      promises.push(p) ;
+    }) ;
+  }
   
   return Ember.RSVP.all(promises) ;
 }) ;
@@ -79,6 +80,19 @@ Ember.Test.registerHelper('clearLSTable', function(app,table){
   adapter._loadData() ;
   
 }) ;
+
+
+
+
+Ember.Test.registerHelper('fetchSavedSettings',function(app,store){
+  return store.filter('setting',function(s){
+    if (s.get('currentState.stateName') === 'root.loaded.saved') {
+      return true ;
+    }
+    return false ;
+  }) ;
+}) ;
+
 
 
 QUnit.testSkip = function() {

@@ -6,13 +6,15 @@ module("Functional - Parties Waiting", {
       this.store = this.c.store ;
       resetTests(this.store).then(function(){
         visit("/parties/waiting") ;
+        wait() ;
       }) ;
     });
   }
 }) ;
 
-test("Test of initial state", function() {
+asyncTest("Test of initial state", function() {
   equal(find(".party").length, 3, 'should be three parties waiting') ;
+  start() ;  
 });
 
 asyncTest("Notify Waiting Party", 6, function(){
@@ -49,6 +51,8 @@ asyncTest("Recall Notified Party", 5, function(){
     ok(stubConfirm.calledOnce, "window.confirm should be called when recalling") ;
     equal($(btn_selector).hasClass('notified'), false, "After recalling, notify button should not have class 'notified'") ;
     equal($(btn_selector).text(), "Notify (847) 644-9168", "After recalling, button text should be 'notify'") ;
+    spyRecall.restore() ;
+    stubConfirm.restore() ;
     start() ;
   }) ;  
 }) ;
@@ -107,4 +111,24 @@ asyncTest("Add New Party", 6, function(){
     equal($("#new_party_dialog").length, 0, "After saving, dialog should close") ;
     start() ;
   }) ;
-})
+}) ;
+
+asyncTest("Clear Lists", 5, function(){
+  var self = this ;
+  var spyDeleteAll = sinon.spy(this.pc._actions,"deleteAll") ;
+  var stubConfirm = sinon.stub(window, 'confirm', function(){return true}) ;
+  click('a.clear-lists').then(function(){
+    ok(stubConfirm.calledOnce, "Clicking 'clear lists' should trigger confirmation prompt") ;
+    ok(spyDeleteAll.calledOnce, "Clicking 'clear lists' should call parties.deleteAll") ;
+    equal($(".party").length, 0, "Clicking 'clear lists' should clear parties from waiting list") ;
+    visit("/parties/seated").then(function(){
+      equal($(".party").length, 0, "Clicking 'clear lists' should clear parties from seated list") ;
+      return visit("/parties/cancelled") ;
+    }).then(function(){
+      equal($(".party").length, 0, "Clicking 'clear lists' should clear parties from cancelled list") ;
+      spyDeleteAll.restore() ;
+      stubConfirm.restore() ;
+      start() ;
+    })
+  }) ;
+});

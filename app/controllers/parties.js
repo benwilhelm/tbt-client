@@ -31,6 +31,18 @@ App.PartiesController = Ember.Controller.extend({
     restore: function(party) {
       party.set('time_cancelled',null) ;
       party.save() ;
+    },
+    
+    deleteAll: function() {
+      var self = this ;
+      this.store.findAll('party').then(function(parties){
+        parties.forEach(function(party){
+          Ember.run.once(party,function(){
+            this.deleteRecord() ;
+            this.save() ;
+          });
+        }) ;
+      }) ;
     }
   }
 }) ;

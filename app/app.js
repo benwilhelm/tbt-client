@@ -10,6 +10,7 @@ var App = Ember.Application.create({
   currentPath: '',
 
   errorHandler: function(e) {
+    console.log(e) ;
     var loc = window.location.hash ;
     console.log(loc) ;
     var msg = '' ;
@@ -22,7 +23,7 @@ var App = Ember.Application.create({
     console.log(msg) ;
     
     // use for debugging
-    throw msg ;
+    throw e ;
   },
   Settings: {}
 });
@@ -45,9 +46,9 @@ App.Router.map(function() {
 
 
 
-//Ember.onerror = App.errorHandler ;
+Ember.onerror = App.errorHandler ;
 Ember.RSVP.configure('onerror', App.errorHandler) ;
-//App.ApplicationRoute = Ember.Route.extend({
-//  actions: { error: App.errorHandler }
-//});
-//window.onerror = App.errorHandler ;
+App.ApplicationRoute = Ember.Route.extend({
+  actions: { error: App.errorHandler }
+});
+window.onerror = App.errorHandler ;

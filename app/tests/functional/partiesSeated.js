@@ -6,6 +6,7 @@ module("Functional - Parties Seated", {
       this.store = this.c.store ;
       resetTests(this.store).then(function(){
         visit("/parties/seated") ;  
+        wait() ;
       }) ;
     });
   }

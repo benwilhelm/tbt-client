@@ -1,6 +1,9 @@
 var moment;
 
 App.ApplicationController = Ember.Controller.extend({
+
+  needs: ['settings','parties','partiesWaiting','partiesCancelled', 'partiesSeated'],
+
   init: function() {
     this.startClock() ;
     this.loadSettings() ;
@@ -16,6 +19,11 @@ App.ApplicationController = Ember.Controller.extend({
   },
   
   loadSettings: function() {
+    
+    var self = this ;
+    var settingsController = self.get('controllers.settings') ;
+    App.Settings = settingsController.get('defaultSettings') ;
+  
     return this.store.findAll('setting').then(function(settings){
       settings.forEach(function(setting){
         var name = setting.get('name') ;
@@ -23,6 +31,8 @@ App.ApplicationController = Ember.Controller.extend({
         App.Settings[name] = value ;
       }) ;
       return App.Settings ;
+    }).then(function(settings){
+      return settingsController.updateSettings(settings) ;
     }) ;
   },  
   
@@ -31,6 +41,11 @@ App.ApplicationController = Ember.Controller.extend({
       "use strict";
       $("body").scrollTop(0) ;
     }
-  }
+  },
+  
+
+  currentPathDidChange: function() {
+    App.set('currentPath', this.get('currentPath'));
+  }.observes('currentPath')
   
 }) ;

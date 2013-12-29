@@ -4,6 +4,7 @@ module("Integration - Party", {
       this.c = App.__container__.lookup("controller:parties") ;
       this.store = this.c.store ;
       resetTests(this.store) ;
+      wait() ;
     }) ;
   }
 });
@@ -148,3 +149,27 @@ asyncTest("parties.actions.restore", 7, function(){
     }) ;
   }) ;
 }) ;
+
+asyncTest("parties.actions.deleteAll", 7, function(){
+  var self = this ;
+  Ember.run(this,function(){
+    getPartyLists(self.store).then(function(parties){
+      equal(parties.waiting.length, 3, "should initially be three parties waiting") ;
+      equal(parties.seated.length,  1, "should initially be one party seated") ;
+      equal(parties.cancelled.length, 1, "should initially be one party cancelled") ;
+      self.c.send('deleteAll') ;
+      return wait() ;
+    }).then(function(){
+      return getPartyLists(self.store) ;
+    }).then(function(parties){
+      equal(parties.waiting.length, 0, "waiting list should be empty") ;
+      equal(parties.seated.length,  0, "seated list should be empty") ;
+      equal(parties.cancelled.length, 0, "cancelled list should be empty") ;
+      
+      return self.store.findAll('party') ;
+    }).then(function(parties){
+      equal(parties.get('content.length'), 0, "should be no parties in store") ;
+      start() ;
+    }) ;
+  });
+})

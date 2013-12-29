@@ -2,15 +2,10 @@ module("Unit - Setting",{
   setup: function(){
     var mod = this ;
     Ember.run(this,function(){
-      appController = App.__container__.lookup("controller:application") ;
-      mod.c = App.__container__.lookup("controller:settings") ;
-      mod.store = appController.store ;
-      mod.appC = appController ;
-      resetTests(mod.store).then(function(){
-        appController.loadSettings() ;
-      }) ;
+      mod.store = App.__container__.lookup("controller:settings").store ;
+      resetTests(mod.store)
+      wait() ;
     }) ; 
-    return wait() ;
   },
   
   teardown: function() {
