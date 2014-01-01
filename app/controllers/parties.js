@@ -1,9 +1,27 @@
 App.PartiesController = Ember.Controller.extend({
   actions: {
     notify: function(party){
-      var time = moment().format('YYYY-MM-DDTHH:mm:ss') ;
-      party.set('time_notified',time) ;
-      party.save() ;
+      var data = {
+        to: party.get('phone_number'),
+        message: App.Settings.notificationText,
+        timeSent: moment().format(),
+        timeTaken: party.get('time_taken'),
+        timePromised: party.get('time_promised'),
+        type: 'tableReady'
+      };
+      
+      $.apiCall('POST','/notifications', data, function(resp){
+        Ember.run(function(){ // run loop seems unnecessary, but tests fail without it
+          var time = moment().format('YYYY-MM-DDTHH:mm:ss') ;
+          party.set('time_notified',time) ;
+          party.save() ;
+        });
+      },function(jqxhr, status, err){
+        console.log('error posting to /notifications') ;
+        console.log(jqxhr) ;
+        console.log(status) ;
+        console.log(err) ;
+      }) ;
     },
     
     recall: function(party){

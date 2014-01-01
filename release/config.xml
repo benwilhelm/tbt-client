@@ -20,6 +20,5 @@
 
 
     <feature name="http://api.phonegap.com/1.0/network"/>
-
-
+    <access origin="https://tablebytext.com" subdomains='true' />
 </widget>

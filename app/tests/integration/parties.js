@@ -3,27 +3,48 @@ module("Integration - Party", {
     Ember.run(this,function(){
       this.c = App.__container__.lookup("controller:parties") ;
       this.store = this.c.store ;
+      this.apiSpy = sinon.spy(jQuery,'ajax') ;
       resetTests(this.store) ;
+      this.server = sinon.fakeServer.create() ;
+      this.server.autoRespond = true ;
+      this.server.respondWith("POST", "https://tablebytext.com/api/notifications",
+                              [200, { "Content-Type": "application/json" },
+                              '{"error":null,"errorMsg":null,"payload":{"__v":0,"timeLogged":"2013-12-29T22:06:39.000Z","from":"52acfaa15633d90200000001","to":"8476449168","timeSent":"2013-12-14T18:14:16.000Z","timeTaken":"2013-12-14T17:34:16.000Z","timePromised":"2013-12-14T18:16:16.000Z","type":"tableReady","message":"testmessage","_id":"52c09cef7170370200000001","billed":false}}']);
       wait() ;
     }) ;
+  },
+  
+  teardown: function(){
+    this.apiSpy.restore() ;
+    this.server.restore() ;
   }
 });
 
 
-asyncTest("parties.actions.notify", 2, function(){
+asyncTest("parties.actions.notify", 7, function(){
   var mod = this ;
   var party, stamp ;
-  Ember.run(this,function(){
+  App.Settings.accountEmail = 'test@example.com' ;
+  App.Settings.accountPassword = 'testpassword' ;
+  Ember.run(function(){
     getPartyLists(mod.store).then(function(parties){
       party = parties.waiting[0] ;
       equal(party.get('time_notified'), null, "time_notified should initially be null") ;
       stamp = moment() ;
-      return mod.c.send('notify',party) ;
+      mod.c.send('notify',party) ;
+      return wait() ;
     }).then(function(){
-      Ember.run.later(function(){
-        equal(party.get('time_notified'), stamp.format("YYYY-MM-DDTHH:mm:ss"), "time_notified should reflect time sent") ;
-        start() ;
-      }, 2000) ;
+      var call = jQuery.ajax.getCall(0) ;
+      var args = call.args[0] ;
+      console.log(call) ;
+      console.log(args) ;
+      ok(mod.apiSpy.calledOnce, "Should make ajax call to API") ;
+      equal("POST", args.type, "Request type should be POST");
+      equal("https://tablebytext.com/api/notifications", args.url, "check URL");
+      equal('test@example.com', args.username, "check account email") ;
+      equal('testpassword', args.password, "check accountPassword") ;
+      equal(party.get('time_notified'), stamp.format("YYYY-MM-DDTHH:mm:ss"), "time_notified should reflect time sent") ;
+      start() ;
     }) ;
   });
 })

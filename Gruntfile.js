@@ -2,7 +2,7 @@ module.exports = function(grunt) {
   'use strict';
   //All grunt related functions
 
-  var adapter = grunt.option('adapter') ? grunt.option('adapter') : "fixture" ;
+  var adapter = grunt.option('adapter') ? grunt.option('adapter') : "localstorage" ;
 
   grunt.initConfig({
     jshint: {
@@ -10,7 +10,7 @@ module.exports = function(grunt) {
         'gruntfile.js',
         'app/*.js',
         'app/models/*.js',
-        'app/adapters/fixture.js',
+        'app/adapters/*.js',
         'app/controllers/*.js',
         'app/routes/*.js',
         'app/views/**/*.js',
@@ -203,6 +203,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-zip');
   grunt.registerTask('default', ['ember_handlebars','concat','sass','clean','copy','connect','watch']);
-  grunt.registerTask('release', ['qunit','jshint','uglify','cssmin','clean','copy']);
+  grunt.registerTask('release', ['jshint','uglify','cssmin','clean','copy']);
   grunt.registerTask('package_release',['release','zip']);
 };

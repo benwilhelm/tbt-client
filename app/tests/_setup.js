@@ -94,7 +94,6 @@ Ember.Test.registerHelper('fetchSavedSettings',function(app,store){
 }) ;
 
 
-
 QUnit.testSkip = function() {
   QUnit.test(arguments[0] + ' (SKIPPED)', function() {
     ok(true) ;

@@ -10,9 +10,7 @@ var App = Ember.Application.create({
   currentPath: '',
 
   errorHandler: function(e) {
-    console.log(e) ;
-    var loc = window.location.hash ;
-    console.log(loc) ;
+
     var msg = '' ;
     
     if (e.name) msg += e.name + '\n' ;

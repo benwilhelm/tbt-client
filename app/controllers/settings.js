@@ -59,7 +59,7 @@ App.SettingsController = Ember.Controller.extend({
       
       var pw = $("input#accountPassword").val() ;
       if (pw) {
-        vals.accountPassword = btoa(pw) ;
+        vals.accountPassword = pw ;
       }
       
       

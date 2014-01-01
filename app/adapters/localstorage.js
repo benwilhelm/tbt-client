@@ -33,19 +33,19 @@ App.ApplicationAdapter = DS.LSAdapter.extend({
 		var id, record, property, test, push;
 		for (id in records) {
 			record = records[id];
-			reject = false;
+			var reject = false;
 			for (property in query) {
 				test = query[property];
 				if (Object.prototype.toString.call(test) === '[object RegExp]') {
 					reject = !test.test(record[property]);
 				} else if (test === true) {
-				  reject = !!!record[property];
+          reject = !!!record[property];
 				} else {
 					reject = record[property] !== test;
 				}
 				
 				if (reject)
-				  break ;
+          break ;
 			}
 			
 			if (!reject)
