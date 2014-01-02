@@ -30,9 +30,13 @@ App.Party = DS.Model.extend({
     var notified = moment(this.get('time_notified')) ;
     var return_time = moment(App.Settings.returnTime * 60 * 1000) ;
     var clock = moment(App.clockTime);
-    
-    var diff = clock.diff(notified) ;
-    return diff >= return_time ;
+
+    if (notified) {    
+      var diff = clock.diff(notified) ;
+      return diff >= return_time ;
+    } else {
+      return false ;
+    }
   }.property('time_notified','App.clockTime'),
   
   countdown: function(){

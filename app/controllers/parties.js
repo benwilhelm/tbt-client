@@ -1,6 +1,7 @@
 App.PartiesController = Ember.Controller.extend({
   actions: {
     notify: function(party){
+      party.set('notifying',true) ;
       var data = {
         to: party.get('phone_number'),
         message: App.Settings.notificationText,
@@ -14,9 +15,11 @@ App.PartiesController = Ember.Controller.extend({
         Ember.run(function(){ // run loop seems unnecessary, but tests fail without it
           var time = moment().format('YYYY-MM-DDTHH:mm:ss') ;
           party.set('time_notified',time) ;
+          party.set('notifying',false) ;
           party.save() ;
         });
       },function(jqxhr, status, err){
+        party.set('time_notified',false) ;
         console.log('error posting to /notifications') ;
         console.log(jqxhr) ;
         console.log(status) ;

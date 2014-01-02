@@ -22,13 +22,17 @@ input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
   .party .buttons { float: right; }
   .party .button { font-weight: lighter; background-color: #ddd; border-bottom: 1px solid #888; border-radius: 3px; color: #fff; float: left; font-size: 1.6em; height: 2em; margin: .2em; padding: .8em 0 ; text-align: center; width: 4.5em; }
     .party .button:hover {  cursor: pointer; }
+
   .party .button.notify { background-color: #0b9011; }
     .party .button.notify .phone { display: block; font-size: .6em; }
   .party .button.notify.notified { background-color: #ffde00; color: #365e7a; }
     .party .button.notify .label { display: block; font-size: .8em; }
     .party .button.notify .countdown { display: block; }
+  .party .button.notify.notified.overdue { background-color: #ff8800; color: #fff; }
+
   .party .button.seat { background-color: #365e7a; }
     .party .button.unseat { background-color: #037; }
+
   .party .button.cancel { background-color: #000; }
     .party .button.restore { background-color: #888; border-bottom-color: #333; }
 

@@ -11,9 +11,23 @@
   	  <div {{action 'cancel' this target="view" }} class="button cancel">Cancel</div>
   	  <div {{action 'seat' this target="view" }} class="button seat">Seat</div>
       {{#if notified}}
-    	  <div {{action 'recall' this target="view"}} class="button notify notified"><span class="label">Notified</span> <span class="countdown">{{minuteSecond countdown}}</span></div>
+    	  <div {{action 'recall' this target="view"}} {{bindAttr class=":button :notify :notified overdue"}}>
+    	    {{#if overdue}}
+    	      <span class="label">OVERDUE</span> 
+    	    {{else}}
+    	      <span class="label">Notified</span> 
+    	    {{/if}}
+    	    <span class="countdown">{{minuteSecond countdown}}</span>
+    	  </div>
       {{else}}
-    	  <div {{action 'notify' this target="view" }} class="button notify">Notify <span class="phone">{{formatPhone phone_number}}</span></div>
+    	  <div {{action 'notify' this target="view" }} class="button notify">
+    	    {{#if notifying}}
+    	      Notifying...
+    	    {{else}}
+    	      Notify 
+    	    {{/if}}
+    	    <span class="phone">{{formatPhone phone_number}}</span>
+    	  </div>
       {{/if}}
     </div><!-- .buttons -->
     <div class="clear"></div>
