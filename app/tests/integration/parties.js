@@ -7,7 +7,7 @@ module("Integration - Party", {
       resetTests(this.store) ;
       this.server = sinon.fakeServer.create() ;
       this.server.autoRespond = true ;
-      this.server.respondWith("POST", "https://tablebytext.com/api/notifications",
+      this.server.respondWith("POST", App.REMOTE_HOST + "/api/notifications",
                               [200, { "Content-Type": "application/json" },
                               '{"error":null,"errorMsg":null,"payload":{"__v":0,"timeLogged":"2013-12-29T22:06:39.000Z","from":"52acfaa15633d90200000001","to":"8476449168","timeSent":"2013-12-14T18:14:16.000Z","timeTaken":"2013-12-14T17:34:16.000Z","timePromised":"2013-12-14T18:16:16.000Z","type":"tableReady","message":"testmessage","_id":"52c09cef7170370200000001","billed":false}}']);
       wait() ;
@@ -21,7 +21,7 @@ module("Integration - Party", {
 });
 
 
-asyncTest("parties.actions.notify", 7, function(){
+asyncTest("parties.actions.notify", 5, function(){
   var mod = this ;
   var party, stamp ;
   App.Settings.accountEmail = 'test@example.com' ;
@@ -40,9 +40,7 @@ asyncTest("parties.actions.notify", 7, function(){
       console.log(args) ;
       ok(mod.apiSpy.calledOnce, "Should make ajax call to API") ;
       equal("POST", args.type, "Request type should be POST");
-      equal("https://tablebytext.com/api/notifications", args.url, "check URL");
-      equal('test@example.com', args.username, "check account email") ;
-      equal('testpassword', args.password, "check accountPassword") ;
+      equal(App.REMOTE_HOST + "/api/notifications", args.url, "check URL");
       equal(party.get('time_notified'), stamp.format("YYYY-MM-DDTHH:mm:ss"), "time_notified should reflect time sent") ;
       start() ;
     }) ;
@@ -55,10 +53,12 @@ asyncTest("parties.actions.recall", 2, function(){
   Ember.run(this,function(){
     getPartyLists(mod.store).then(function(parties){
       party = parties.waiting[0] ;
-      return mod.c.send('notify',party) ;
+      mod.c.send('notify',party) ;
+      return wait() ;
     }).then(function(){
       ok(party.get('time_notified'), "initially time_notified should not be null") ;
-      return mod.c.send('recall', party) ;
+      mod.c.send('recall', party) ;
+      return wait() ;
     }).then(function(){
       equal(party.get('time_notified'), null, "time_notified should be null after recalling party") ;
       start() ;

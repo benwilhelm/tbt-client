@@ -1,0 +1,45 @@
+<div {{bind-attr class=":wrapper :stripe :account-info accountAuthorized:authorized:unauthorized"}}>
+  <p class="status fleft">
+    {{#if accountAuthorized}}
+      Your account is authorized.
+    {{else}}
+      Your account is not yet authorized.
+    {{/if}}
+  </p><!-- .status -->
+
+  {{#unless showPassword }}
+    <button class="fright" id="authorizeToggle" {{action 'togglePasswordForm'}}>
+    {{#if accountAuthorized}}
+      Reset Authorization
+    {{else}}
+      Authorize Account
+    {{/if}}
+    </button>
+  {{/unless}}
+  <div class="clear"></div>
+  
+  {{#if showPassword}}
+    <hr />
+    <p>
+      <label for="accountEmail">Account Email</label><br>
+      {{view Ember.TextField
+        name='accountEmail'
+        id='accountEmail'
+        type='email'
+      }}
+    </p>
+    <p>
+      <label for="accountEmail">Account Password</label><br>
+      {{view Ember.TextField
+        name='accountPassword'
+        id='accountPassword'
+        type='password'
+      }}
+    </p>
+    
+    <button id="authorizeAccount" class="authorize-account" {{action 'authorizeAccount' target='view'}} >Authorize</button>
+    <button class='cancel' {{action 'togglePasswordForm'}}>Cancel</button>
+  {{/if}}
+  
+  <div class="clear"></div>
+</div><!-- .account-info -->

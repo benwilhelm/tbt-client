@@ -1,6 +1,11 @@
 <div id="settings">
   <p id="settings_status">&nbsp</p>
 
+
+  {{view App.Views.SettingsAuthorizeView}}
+
+  <hr>
+
   <div class="wrapper stripe return-time">
     <label class="fleft" for="returnTime">Time to allow for party return</label>
     <div class="fright">
@@ -39,31 +44,6 @@
       }}
     </div>
   </div><!-- .wrapper.recall-text -->
-
-  <div class="wrapper stripe account-info">
-    <label for="authEmail" class="fleft">Account Email</label><!-- .fleft -->
-    <div class="fright">
-      {{view Ember.TextField
-        name='accountEmail'
-        id='accountEmail'
-        valueBinding='content.accountEmail.value'
-        type='email'
-      }}
-    </div><!-- .fright -->
-    <div class="clear"></div>
-    {{#if showPassword}}
-      <label for="accountPassword" class="fleft">Password</label>
-      <div class="fright">
-        {{view Ember.TextField name='accountPassword' id='accountPassword' type='password'}}
-      </div><!-- .fright -->
-      <div class="clear"></div>
-      <button class="fright" {{action 'togglePassword'}} >Cancel</button>
-      <div class="clear"></div>
-    {{else}}
-      <button class="fright" {{action 'togglePassword'}}>Enter Password</button>
-      <div class="clear"></div>
-    {{/if}}
-  </div><!-- .account-info -->
   
   <div class="wrapper submit-button">
     <a class="standard-button" id='saveSettings' {{action "saveSettings"}}>

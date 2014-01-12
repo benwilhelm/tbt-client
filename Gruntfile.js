@@ -3,6 +3,12 @@ module.exports = function(grunt) {
   //All grunt related functions
 
   var adapter = grunt.option('adapter') ? grunt.option('adapter') : "localstorage" ;
+  var environment ;
+  if (grunt.cli.tasks[0] === 'release') {
+    environment = 'production' ;
+  } else {
+    environment = grunt.option('env') ? grunt.option('env') : "development" ;
+  }
 
   grunt.initConfig({
     jshint: {
@@ -36,7 +42,8 @@ module.exports = function(grunt) {
           window: true,
           moment: true,
           DS: true,
-          sinon: true
+          sinon: true,
+          CryptoJS: true
         }
       }
     },
@@ -51,7 +58,9 @@ module.exports = function(grunt) {
           'app/library/ember-1.0.0.js',
           'app/library/ember-data-1.0.beta.3.js',
           'app/library/localstorage_adapter.js',
+          'app/library/hmac-sha256.js',
           'app/app.js',
+          'app/environments/' + environment + '.js',
           'debug/templates.js',
           'app/models/*.js',
           'app/controllers/*.js',

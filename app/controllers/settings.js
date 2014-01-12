@@ -1,8 +1,8 @@
 App.SettingsController = Ember.Controller.extend({
 
   defaultSettings : {
-    'accountEmail': null,
-    'accountPassword': null,
+    'apiKey': null,
+    'apiSecret': null,
     'returnTime': 5,
     'notificationText': 'Your table is ready.',
     'recallText': 'We apologize, but your table is not ready.'
@@ -46,6 +46,36 @@ App.SettingsController = Ember.Controller.extend({
       console.log(e.message) ;
     }) ;
   },
+  
+  authorizeAccount: function(username, password) {
+    var self = this ;
+    return Ember.RSVP.Promise(function(resolve,reject){
+      $.ajax({
+        beforeSend: function(xhr){
+          xhr.setRequestHeader("Authorization", "Basic " + window.btoa(username + ":" + password)) ;
+        },
+        url: App.REMOTE_HOST + '/api/credentials',
+        type: 'GET',
+        dataType: 'json',
+        error: function(err){
+          Ember.run(function(){
+            reject(err);
+          });
+        },
+        success: function(data, status, jqxhr){
+          if (data.error) {
+            Ember.run(function(){
+              reject(data.errorMsg) ;
+            });
+          }
+          
+          Ember.run(function(){
+            resolve(self.updateSettings(data.payload)) ;
+          });
+        }
+      }) ;
+    });
+  },
 
   actions: {    
     saveSettings: function() {
@@ -72,7 +102,7 @@ App.SettingsController = Ember.Controller.extend({
       }) ;
     },
     
-    togglePassword: function() {
+    togglePasswordForm: function() {
       var showPassword = !this.get('showPassword') ;
       this.set('showPassword',showPassword) ;
     }

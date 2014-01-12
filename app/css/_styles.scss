@@ -51,7 +51,12 @@ input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
 #settings .wrapper.stripe { background-color: #ddd; }
 #settings .wrapper.stripe input { font-size: 1.2em; }
 #settings .wrapper.stripe label { padding-top: .6em; }
+#settings .wrapper.stripe.account-info.unauthorized { background-color: #F33; color: #fff; }
+#settings .wrapper.stripe.account-info.authorizing { background-color: #FF3; color: #fff; }
+#settings .wrapper.stripe.account-info.authorized { background-color: #0A0; color: #fff; }
+#settings .account-info .status { margin: 0; }
 #settings input#accountEmail { width: 15em ; }
+#settings input#accountPassword { width: 15em ; }
 #settings input#returnTime { width: 2em ; }
 
 #settings .wrapper.text-area { position: relative; left: -.5em; }

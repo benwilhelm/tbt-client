@@ -94,6 +94,33 @@ Ember.Test.registerHelper('fetchSavedSettings',function(app,store){
 }) ;
 
 
+Ember.Test.registerHelper('parseQueryString', function(app, queryString){
+  var ret = {} ;
+  var a = queryString.split("&") ;
+  a.forEach(function(param){
+    var pair = param.split('=') ;
+    var key = decodeURIComponent(pair[0]) ;
+    var val = decodeURIComponent(pair[1]) ;
+    ret[key] = val ;
+  });
+  
+  return ret ;
+}) ;
+
+Ember.Test.registerHelper('resetTestingDb', function(){
+  return new Ember.RSVP.Promise(function(resolve){
+    $.get("http://localhost:3000/api/testing/reset", function(creds){
+      var c = App.__container__.lookup("controller:settings") ;
+      Ember.run(this, function(){
+        c.updateSettings(creds).then(function(){
+          resolve(creds) ;
+        }, function(err){console.log(err)}) ;
+      });
+    },'json') ;
+  });
+}) ;
+
+
 QUnit.testSkip = function() {
   QUnit.test(arguments[0] + ' (SKIPPED)', function() {
     ok(true) ;

@@ -5,8 +5,9 @@ module("Functional - Parties Waiting", {
       this.pc = App.__container__.lookup("controller:parties") ;
       this.store = this.c.store ;
       resetTests(this.store).then(function(){
+        return resetTestingDb() ;
+      }).then(function(){
         visit("/parties/waiting") ;
-        wait() ;
       }) ;
     });
   }
@@ -18,43 +19,49 @@ asyncTest("Test of initial state", function() {
 });
 
 asyncTest("Notify Waiting Party", 6, function(){
-  var $party = $(".party").first() ;
-  var view_id = $party.closest('.ember-view').attr('id') ;
-  var btn_selector = "#" + view_id + " .party .button.notify" ;
-  var spy = sinon.spy(this.pc._actions,"notify") ;
-  equal($(btn_selector).hasClass('notified'), false, "Initially, notify button should not have class 'notified'") ;
-  equal($(btn_selector).text(), "Notify (847) 644-9168", "Initially, button text should be 'notify'") ;
-  click(btn_selector).then(function(){
-    ok($(btn_selector).hasClass('notified'), "After clicking, button should have class 'notified'") ;
-    ok($(btn_selector).text(), "Notified 4:59", "Clicking notify button should start timer") ;
-    ok(spy.calledOnce, "party.notify should be called once") ;
-    Ember.run.later(function(){
-      ok($(btn_selector).text(), "Notified 4:58", "Timer should run") ;
-      start() ;
-    },1000) ;
-    spy.restore() ;
+  var self = this ;
+  wait().then(function(){
+    var $party = $(".party").first() ;
+    var view_id = $party.closest('.ember-view').attr('id') ;
+    var btn_selector = "#" + view_id + " .party .button.notify" ;
+    var spy = sinon.spy(self.pc._actions,"notify") ;
+    equal($(btn_selector).hasClass('notified'), false, "Initially, notify button should not have class 'notified'") ;
+    ok($(btn_selector).text().indexOf("Notify") !== -1, "Initially, button text should be 'notify'") ;
+    click(btn_selector).then(function(){
+      ok($(btn_selector).hasClass('notified'), "After clicking, button should have class 'notified'") ;
+      ok($(btn_selector).text(), "Notified 4:59", "Clicking notify button should start timer") ;
+      ok(spy.calledOnce, "party.notify should be called once") ;
+      Ember.run.later(function(){
+        ok($(btn_selector).text(), "Notified 4:58", "Timer should run") ;
+        start() ;
+      },1000) ;
+      spy.restore() ;
+    }) ;
   }) ;
 }) ;
 
 asyncTest("Recall Notified Party", 5, function(){
-  var $party = $(".party").first() ;
-  var view_id = $party.closest('.ember-view').attr('id') ;
-  var btn_selector = "#" + view_id + " .party .button.notify" ;
-  var spyRecall = sinon.spy(this.pc._actions,"recall") ;
-  var stubConfirm = sinon.stub(window, 'confirm', function(){return true}) ;
-  click(btn_selector).then(function(){
-    ok($(btn_selector).hasClass('notified'), "Verifying that party has been notified first.") ;
-    
-    return click(btn_selector) ;
-  }).then(function(){
-    ok(spyRecall.calledOnce, "Recall action should be called once.") ;
-    ok(stubConfirm.calledOnce, "window.confirm should be called when recalling") ;
-    equal($(btn_selector).hasClass('notified'), false, "After recalling, notify button should not have class 'notified'") ;
-    equal($(btn_selector).text(), "Notify (847) 644-9168", "After recalling, button text should be 'notify'") ;
-    spyRecall.restore() ;
-    stubConfirm.restore() ;
-    start() ;
-  }) ;  
+  var self = this ;
+  wait().then(function(){
+    var $party = $(".party").first() ;
+    var view_id = $party.closest('.ember-view').attr('id') ;
+    var btn_selector = "#" + view_id + " .party .button.notify" ;
+    var spyRecall = sinon.spy(self.pc._actions,"recall") ;
+    var stubConfirm = sinon.stub(window, 'confirm', function(){return true}) ;
+    click(btn_selector).then(function(){
+      ok($(btn_selector).hasClass('notified'), "Verifying that party has been notified first.") ;
+      
+      return click(btn_selector) ;
+    }).then(function(){
+      ok(spyRecall.calledOnce, "Recall action should be called once.") ;
+      ok(stubConfirm.calledOnce, "window.confirm should be called when recalling") ;
+      equal($(btn_selector).hasClass('notified'), false, "After recalling, notify button should not have class 'notified'") ;
+    ok($(btn_selector).text().indexOf("Notify") !== -1, "After recalling, button text should be 'notify'") ;
+      spyRecall.restore() ;
+      stubConfirm.restore() ;
+      start() ;
+    }) ;  
+  });
 }) ;
 
 asyncTest("Seat Party", 4, function(){
@@ -107,7 +114,7 @@ asyncTest("Add New Party", 6, function(){
     var time_promised = "Time Promised: " + now.add('m',35).format("h:mm") ;
     equal($party.find('.time-taken').text(), time_taken, "New Party's time_taken should be now") ;
     equal($party.find('.time-promised').text(), time_promised, "New Party's time promised show in the name field") ;
-    equal($party.find('.button.notify').text(), "Notify (312) 555-1212", "New party's notify button should include phone number") ;
+    ok($party.find('.button.notify').text().indexOf("(312) 555-1212") !== -1, "New party's notify button should include phone number") ;
     equal($("#new_party_dialog").length, 0, "After saving, dialog should close") ;
     start() ;
   }) ;
