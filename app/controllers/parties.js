@@ -28,8 +28,27 @@ App.PartiesController = Ember.Controller.extend({
     },
     
     recall: function(party){
-      party.set('time_notified',null) ;
-      party.save() ;
+      party.set('recalling',true) ;
+      var data = {
+        to: party.get('phone_number'),
+        message: App.Settings.recallText,
+        timeSent: moment().format(),
+        type: 'recallNotification'
+      };
+    
+      $.apiCall('POST','/notifications', data, function(resp){
+        Ember.run(function(){ // run loop seems unnecessary, but tests fail without it
+          party.set('time_notified',null) ;
+          party.set('recalling',false) ;
+          party.save() ;
+        });
+      },function(jqxhr, status, err){
+        party.set('time_notified',false) ;
+        console.log('error posting to /notifications') ;
+        console.log(jqxhr) ;
+        console.log(status) ;
+        console.log(err) ;
+      }) ;
     },
       
     seat: function(party) {

@@ -56,7 +56,7 @@ asyncTest("Recall Notified Party", 5, function(){
       ok(spyRecall.calledOnce, "Recall action should be called once.") ;
       ok(stubConfirm.calledOnce, "window.confirm should be called when recalling") ;
       equal($(btn_selector).hasClass('notified'), false, "After recalling, notify button should not have class 'notified'") ;
-    ok($(btn_selector).text().indexOf("Notify") !== -1, "After recalling, button text should be 'notify'") ;
+      ok($(btn_selector).text().indexOf("Notify") !== -1, "After recalling, button text should be 'notify'") ;
       spyRecall.restore() ;
       stubConfirm.restore() ;
       start() ;

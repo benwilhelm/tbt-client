@@ -23,9 +23,11 @@
     	  <div {{action 'notify' this target="view" }} class="button notify">
     	    {{#if notifying}}
     	      Notifying...
+    	    {{else}} {{#if recalling}}
+    	      Recalling...
     	    {{else}}
     	      Notify 
-    	    {{/if}}
+    	    {{/if}}{{/if}}
     	    <span class="phone">{{formatPhone phone_number}}</span>
     	  </div>
       {{/if}}

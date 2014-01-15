@@ -24,8 +24,8 @@ module("Integration - Party", {
 asyncTest("parties.actions.notify", 5, function(){
   var mod = this ;
   var party, stamp ;
-  App.Settings.accountEmail = 'test@example.com' ;
-  App.Settings.accountPassword = 'testpassword' ;
+  App.Settings.apiKey = 'afafafafafafafafafafafaf' ;
+  App.Settings.apiSecret = 'afafafafafafafafafafafafafafafafafafafafafafafaf' ;
   Ember.run(function(){
     getPartyLists(mod.store).then(function(parties){
       party = parties.waiting[0] ;
@@ -36,8 +36,6 @@ asyncTest("parties.actions.notify", 5, function(){
     }).then(function(){
       var call = jQuery.ajax.getCall(0) ;
       var args = call.args[0] ;
-      console.log(call) ;
-      console.log(args) ;
       ok(mod.apiSpy.calledOnce, "Should make ajax call to API") ;
       equal("POST", args.type, "Request type should be POST");
       equal(App.REMOTE_HOST + "/api/notifications", args.url, "check URL");
@@ -47,19 +45,27 @@ asyncTest("parties.actions.notify", 5, function(){
   });
 })
 
-asyncTest("parties.actions.recall", 2, function(){
+asyncTest("parties.actions.recall", 5, function(){
   var mod = this ;
   var party, stamp ;
+  App.Settings.apiKey = 'afafafafafafafafafafafaf' ;
+  App.Settings.apiSecret = 'afafafafafafafafafafafafafafafafafafafafafafafaf' ;
   Ember.run(this,function(){
     getPartyLists(mod.store).then(function(parties){
       party = parties.waiting[0] ;
       mod.c.send('notify',party) ;
       return wait() ;
     }).then(function(){
+      mod.apiSpy.reset() ;
       ok(party.get('time_notified'), "initially time_notified should not be null") ;
       mod.c.send('recall', party) ;
       return wait() ;
     }).then(function(){
+      var call = jQuery.ajax.getCall(0) ;
+      var args = call.args[0] ;
+      ok(mod.apiSpy.calledOnce, "Should make ajax call to API") ;
+      equal("POST", args.type, "Request type should be POST");
+      equal(App.REMOTE_HOST + "/api/notifications", args.url, "check URL");
       equal(party.get('time_notified'), null, "time_notified should be null after recalling party") ;
       start() ;
     }) ;
