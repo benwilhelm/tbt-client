@@ -4,12 +4,13 @@ module.exports = function(grunt) {
 
   var adapter = grunt.option('adapter') ? grunt.option('adapter') : "localstorage" ;
   var environment ;
-  if (grunt.cli.tasks[0] === 'release') {
+  if (grunt.cli.tasks[0] === 'release' || grunt.cli.tasks[0] === 'package_release') {
     environment = 'production' ;
   } else {
     environment = grunt.option('env') ? grunt.option('env') : "development" ;
   }
 
+  console.log("Env: " + environment) ;
   grunt.initConfig({
     jshint: {
       files: [
@@ -212,6 +213,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-zip');
   grunt.registerTask('default', ['ember_handlebars','concat','sass','clean','copy','connect','watch']);
-  grunt.registerTask('release', ['jshint','uglify','cssmin','clean','copy']);
+  grunt.registerTask('release', ['jshint','concat','uglify','cssmin','clean','copy']);
   grunt.registerTask('package_release',['release','zip']);
 };
