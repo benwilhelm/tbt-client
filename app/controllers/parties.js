@@ -87,31 +87,48 @@ App.PartiesController = Ember.Controller.extend({
   }
 }) ;
 
-
-App.PartiesWaitingController = Ember.ArrayController.extend({
-  needs: ['parties','application'],
-  sortProperties: ["time_taken"],
-  sortAscending: true,
-  
+App.PartiesNewController = Ember.ObjectController.extend({
+  needs: ['parties'],
+  statusMessage: "",
   actions: {
-  
-    newParty: function(info){    
+    createParty: function(info, success, failure){    
       var c = this ;
       var party = this.store.createRecord('party',info) ;
-      return party.save().then(function(){
-        c.get('content').pushObject(party) ;
-        return party ;
-      }) ;
-    }, 
-    
-    openAddPartyDialog: function() {
-      this.set('addingNewParty',true) ;
+      party.save().then(success, failure) ;
     },
     
-    closeAddPartyDialog: function() {
-      this.set('addingNewParty',false) ;
+    addParty: function() {
+      var controller = this ;
+      this.set('statusMessage','Saving Party...') ;
+      
+      var now = moment() ;
+      var wait = $("#new_party_dialog #party_wait").val() ;
+
+      var info = {
+        name: $("#new_party_dialog #party_name").val(),
+        size: $("#new_party_dialog #party_size").val(),
+        phone_number: $("#new_party_dialog #party_phone").val(),
+        time_taken: now.format('YYYY-MM-DDTHH:mm:ss'),
+        time_promised: now.add('m',wait).format("YYYY-MM-DDTHH:mm:ss")
+      };
+                  
+      this.send('createParty', info, function(){
+        // success
+        this.set('statusMessage','') ;
+        controller.transitionToRoute('/parties/waiting') ;
+      }, function(err){
+        // error
+        controller.set('statusMessage', "Error saving party") ;
+      }) ;
     }
   }
+
+}) ;
+
+App.PartiesWaitingController = Ember.ArrayController.extend({
+  needs: ['parties'],
+  sortProperties: ["time_taken"],
+  sortAscending: true  
 }) ;
 
 App.PartiesSeatedController = Ember.ArrayController.extend({

@@ -35,6 +35,7 @@ App.CONSTANTS = {
 
 App.Router.map(function() {
   this.resource('parties',function(){
+    this.route('new');
     this.route('waiting');
     this.route('seated');
     this.route('cancelled');

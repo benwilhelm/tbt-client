@@ -98,28 +98,6 @@ asyncTest("Cancel Party", 4, function(){
   }) ;
 }) ;
 
-asyncTest("Add New Party", 6, function(){
-  var now = moment() ;
-  click("#open_add_party_dialog")
-  .fillIn("#party_name", 'newparty')
-  .fillIn("#party_size", 3)
-  .fillIn("#party_phone", 3125551212)
-  .fillIn("#party_wait", 35)
-  .click("#add_party_button")
-  .then(function(){
-    var $party = $(".party").eq(3) ;
-    equal($party.find('.name').text(), "newparty", "New Party's name should show in the name field") ;
-    equal($party.find('.party-size').text(), "3", "New Party's size should show in the size field") ;
-    var time_taken = "Time Taken: " + now.format("h:mm") ;
-    var time_promised = "Time Promised: " + now.add('m',35).format("h:mm") ;
-    equal($party.find('.time-taken').text(), time_taken, "New Party's time_taken should be now") ;
-    equal($party.find('.time-promised').text(), time_promised, "New Party's time promised show in the name field") ;
-    ok($party.find('.button.notify').text().indexOf("(312) 555-1212") !== -1, "New party's notify button should include phone number") ;
-    equal($("#new_party_dialog").length, 0, "After saving, dialog should close") ;
-    start() ;
-  }) ;
-}) ;
-
 asyncTest("Clear Lists", 5, function(){
   var self = this ;
   var spyDeleteAll = sinon.spy(this.pc._actions,"deleteAll") ;

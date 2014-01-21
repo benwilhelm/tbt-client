@@ -1,8 +1,4 @@
-{{#if addingNewParty}}
-  {{view App.Views.PartyNew}}
-{{/if}}
-
-<button id="open_add_party_dialog" {{action openAddPartyDialog}}>Add New Party</button>
+{{#linkTo 'parties.new' id="open_add_party_dialog" }}Add New Party{{/linkTo}}
 
 {{#each arrangedContent}}
   {{view App.Views.PartyWaiting}}

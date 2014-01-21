@@ -18,8 +18,8 @@
     <input type="number" name="party_wait" id="party_wait" />
   </p>
   
-  <button {{action addParty target='view'}} id='add_party_button' class="button">Add Party</button>
-  <button {{action closeAddPartyDialog}} id='close_button' class="button">Cancel</button>
+  <button {{action addParty}} id='add_party_button' class="button">Add Party</button>
+  {{#linkTo 'parties.waiting' id='close_button' class="button" }}Cancel{{/linkTo}}
   <div class="clear"></div>
   <p class="status">{{statusMessage}}&nbsp;</p>
 </div><!-- #new_party_dialog -->
