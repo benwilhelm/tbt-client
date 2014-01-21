@@ -27,3 +27,42 @@ $.apiCall = function(method, route, data, success, error) {
   
   $.ajax(params) ;
 } ;
+
+$.hideFooterForInputs = function() {
+
+  var types = [
+    'textarea', 
+    'input[type=text]', 
+    'input[type=email]',
+    'input[type=number]',
+    'input[type=date]',
+    'input[type=datetime]',
+    'input[type=datetime-local]',
+    'input[type=password]',
+    'input[type=month]',
+    'input[type=search]',
+    'input[type=tel]',
+    'input[type=time]',
+    'input[type=url]',
+    'input[type=week]'
+  ] ;
+  var selector = types.join(',') ;
+  var $inputs = $(selector) ;
+  var $footer = $("#app_footer") ;
+
+
+  $inputs.each(function(idx,obj){
+    var $input = $(obj) ;
+    if (!$input.hasClass('hideFooter-processed')) {
+      $input.focus(function(){
+        $footer.hide() ;
+      }) ;
+    
+      $input.blur(function(){
+        $footer.show() ;
+      }) ;
+      
+      $input.addClass('hideFooter-processed') ;
+    }
+  }) ;
+};

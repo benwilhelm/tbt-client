@@ -88,6 +88,10 @@ App.PartiesController = Ember.Controller.extend({
 }) ;
 
 App.PartiesNewController = Ember.ObjectController.extend({
+  didInsertElement: function() {
+    console.log('didInsertElement') ;
+    $.hideFooterForInputs() ;
+  },
   needs: ['parties'],
   statusMessage: "",
   actions: {
