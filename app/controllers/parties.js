@@ -118,7 +118,7 @@ App.PartiesNewController = Ember.ObjectController.extend({
                   
       this.send('createParty', info, function(){
         // success
-        this.set('statusMessage','') ;
+        controller.set('statusMessage','') ;
         controller.transitionToRoute('/parties/waiting') ;
       }, function(err){
         // error
